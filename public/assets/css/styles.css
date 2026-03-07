@@ -1,0 +1,69 @@
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+@keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-loading { animation: loading 2s ease-in-out; }
+.animate-slide-up { animation: slide-up 0.3s ease-out; }
+.animate-bounce-slow { animation: bounce-slow 2s infinite; }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+
+.nav-item { color: #9ca3af; }
+.nav-item.active { color: #22c55e; }
+.nav-item:hover { background-color: #f0fdf4; color: #22c55e; }
+
+.meal-type-btn { background-color: #f3f4f6; color: #6b7280; }
+.meal-type-btn.active { background-color: #22c55e; color: white; }
+.meal-type-btn:hover:not(.active) { background-color: #e5e7eb; }
+
+.progress-ring { transform: rotate(-90deg); }
+.progress-ring__circle { transition: stroke-dashoffset 0.5s ease-in-out; }
+
+.food-card { transition: all 0.3s ease; }
+.food-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+
+.recipe-card { transition: all 0.3s ease; }
+.recipe-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); }
+.recipe-card:hover .recipe-image { transform: scale(1.05); }
+.recipe-image { transition: transform 0.3s ease; }
+
+.macro-bar { transition: width 0.5s ease-in-out; }
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+button { cursor: pointer; user-select: none; }
+button:active:not(:disabled) { transform: scale(0.98); }
+
+.water-drop { transition: all 0.3s ease; }
+.water-drop.filled { color: #3b82f6; transform: scale(1.1); }
+.water-drop:not(.filled) { color: #e5e7eb; }
+
+#user-dropdown { animation: dropdownFade 0.2s ease; }
+#user-dropdown button:hover { padding-left: 1.25rem; transition: padding 0.2s ease; }
+
+@media (max-width: 640px) {
+    .nav-item span { font-size: 0.65rem; }
+}

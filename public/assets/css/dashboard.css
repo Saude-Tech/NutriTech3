@@ -1,0 +1,422 @@
+/* ===== Dashboard Specific Styles ===== */
+
+/* Greeting Section */
+.greeting-section {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.avatar-pulse {
+    position: relative;
+}
+
+.avatar-pulse::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.1; }
+}
+
+/* Calorie Ring */
+.calorie-card {
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+}
+
+.calorie-ring-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+}
+
+.calorie-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #e5e7eb;
+    stroke-width: 12;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: url(#progressGradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 326.73;
+    stroke-dashoffset: 196.04; /* 40% progress */
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+.ring-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-percentage {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.ring-label {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Macros Section */
+.macros-section {
+    animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+.macro-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.macro-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.macro-protein .macro-icon { background: #fee2e2; }
+.macro-carbs .macro-icon { background: #fef3c7; }
+.macro-fat .macro-icon { background: #dbeafe; }
+
+.macro-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.macro-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0.25rem 0;
+}
+
+.macro-progress {
+    width: 100%;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.macro-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease-out;
+}
+
+.macro-protein .macro-bar { background: #f87171; }
+.macro-carbs .macro-bar { background: #fbbf24; }
+.macro-fat .macro-bar { background: #60a5fa; }
+
+.macro-goal {
+    font-size: 0.625rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+
+/* Water Section */
+.water-section {
+    animation: fadeInUp 0.5s ease-out 0.3s both;
+}
+
+.water-tracker {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.water-drop {
+    font-size: 1.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: grayscale(100%) opacity(0.4);
+}
+
+.water-drop.filled {
+    filter: none;
+    transform: scale(1.1);
+}
+
+.water-drop:hover {
+    transform: scale(1.2);
+}
+
+/* Meals Section */
+.meals-section {
+    animation: fadeInUp 0.5s ease-out 0.4s both;
+}
+
+.meal-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 0.75rem;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.meal-card:hover {
+    border-left-color: #22c55e;
+}
+
+.meal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.meal-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.meal-icon {
+    font-size: 1.25rem;
+}
+
+.meal-title {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.meal-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.meal-calories {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.meal-add-btn {
+    width: 2rem;
+    height: 2rem;
+    background: rgba(34, 197, 94, 0.1);
+    border: none;
+    border-radius: 0.5rem;
+    color: #22c55e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.meal-add-btn:hover {
+    background: rgba(34, 197, 94, 0.2);
+}
+
+.meal-foods {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.food-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.food-item:last-child {
+    border-bottom: none;
+}
+
+.food-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.food-emoji {
+    font-size: 1.25rem;
+}
+
+.food-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.food-portion {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.food-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.food-calories {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.food-remove-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.food-item:hover .food-remove-btn {
+    opacity: 1;
+}
+
+.meal-empty {
+    text-align: center;
+    padding: 1rem;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+/* Tip Section */
+.tip-section {
+    animation: fadeInUp 0.5s ease-out 0.5s both;
+}
+
+.tip-card {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.tip-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: white;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.tip-content h4 {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.tip-content p {
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    z-index: 40;
+}
+
+.bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    color: #9ca3af;
+    text-decoration: none;
+    font-size: 0.65rem;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.bottom-nav .nav-item.active {
+    color: #22c55e;
+}
+
+.bottom-nav .nav-item:hover {
+    color: #22c55e;
+}
+
+.bottom-nav .nav-item span {
+    margin-top: 0.25rem;
+}
+
+.add-btn-circle {
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: -1.5rem;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

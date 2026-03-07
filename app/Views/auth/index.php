@@ -366,9 +366,13 @@
             cursor: pointer;
         }
 
+        /* SUBSTITUA O BLOCO ABAIXO */
         .remember-me input,
         .terms-checkbox input {
-            display: none;
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
 
         .checkmark {
@@ -748,7 +752,7 @@
             </div>
 
             <!-- Login Form -->
-            <form id="login-form" class="auth-form active" method="post" action="auth/login">
+            <form id="login-form" class="auth-form active" method="post" action="<?= base_url('auth/login') ?>">
                 <div class="form-header">
                     <h2>Bem-vindo de volta! 👋</h2>
                     <p>Entre com suas credenciais para continuar</p>
@@ -829,7 +833,7 @@
             </form>
 
             <!-- Register Form -->
-            <form id="register-form" class="auth-form" action="auth/register" method="post">
+            <form id="register-form" class="auth-form" method="post" action="<?= base_url('auth/register') ?>">
                 <div class="form-header">
                     <h2>Crie sua conta 🚀</h2>
                     <p>Comece sua jornada para uma vida mais saudável</p>

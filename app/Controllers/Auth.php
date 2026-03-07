@@ -49,4 +49,42 @@ class Auth extends BaseController
             return redirect()->to('/auth');
         }
     }
+
+    public function register()
+    {
+        // 1. Regras de validação (os nomes precisam bater com os 'name' do seu formulário HTML)
+        $rules = [
+            'name'     => 'required|min_length[3]',
+            // is_unique garante que ninguém crie duas contas com o mesmo email na tabela users
+            'email'    => 'required|valid_email|is_unique[users.user_email]', 
+            'password' => 'required|min_length[4]',
+            'confirm'  => 'matches[password]' // Garante que a confirmação de senha é idêntica
+        ];
+
+        // 2. Se a validação falhar
+        if (! $this->validate($rules)) {
+            // Você pode capturar esses erros na view depois. Por enquanto, mandamos um erro genérico:
+            session()->setFlashdata('error', 'Erro ao criar conta. Verifique os dados ou se o email já existe.');
+            return redirect()->to('auth');
+        }
+
+        // 3. Pegando os dados do formulário
+        $name     = $this->request->getPost('name');
+        $email    = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        // 4. Criptografando a senha (ISSO FAZ O LOGIN FUNCIONAR DEPOIS!)
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // 5. Salvando no banco de dados usando o Model
+        $this->userModel->insert([
+            'user_name'     => $name,
+            'user_email'    => $email,
+            'user_password' => $hashedPassword
+        ]);
+
+        // 6. Tudo certo! Redireciona para o login com mensagem de sucesso
+        session()->setFlashdata('success', 'Conta criada com sucesso! Agora você já pode entrar.');
+        return redirect()->to('auth');
+    }
 }
