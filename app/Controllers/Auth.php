@@ -11,11 +11,22 @@ class Auth extends BaseController
     public function __construct()
     {
         $this->userModel = new UserModel();
-        helper('auth'); // se você tiver helpers de autenticação
+        helper('auth');
     }
 
-    public function index(): string {
-        return view('auth/index');
+    public function index() 
+    {
+
+        $data = [
+            'title' => 'AUTH',
+            'style' => 'auth',
+            'javascript' => 'auth',
+        ];
+
+        echo view('includes/header', $data);
+        echo view('auth/index');
+        echo view('includes/footer', $data);
+
     }
 
     public function login()
@@ -36,11 +47,11 @@ class Auth extends BaseController
 
         $user = $this->userModel->findByEmail($email);
 
-        if ($user && password_verify($password, $user['user_password'])) {
+        if ($user && password_verify($password, $user['password'])) {
             session()->set([
-                'user_id'   => $user['user_id'],
-                'user_name' => $user['user_name'],
-                'user_email' => $user['user_email'],
+                'id'   => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
                 'logged_in' => true
             ]);
 
@@ -79,9 +90,9 @@ class Auth extends BaseController
 
         // 5. Salvando no banco de dados usando o Model
         $this->userModel->insert([
-            'user_name'     => $name,
-            'user_email'    => $email,
-            'user_password' => $hashedPassword
+            'name'     => $name,
+            'email'    => $email,
+            'password' => $hashedPassword
         ]);
 
         // 6. Tudo certo! Redireciona para o login com mensagem de sucesso

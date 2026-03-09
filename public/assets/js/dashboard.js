@@ -178,9 +178,6 @@ function renderMealSection(mealType, title, foods) {
     `;
 }
 
-function initDashboard() {
-    // Dashboard initialization
-}
 
 function updateWater(amount) {
     AppState.todayData.water = amount;

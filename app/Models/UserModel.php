@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class UserModel extends Model {
 
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
     protected $returnType = 'array';
     protected $allowedFields = [
-        'user_name',
-        'user_email',
-        'user_password'
+        'name',
+        'email',
+        'password'
     ];
 
     public function allUsers()
@@ -22,6 +22,11 @@ class UserModel extends Model {
 
     public function findByEmail($email)
     {
-        return $this -> where('user_email', $email)->first();
+        return $this -> where('email', $email)->first();
+    }
+
+    public function findById($id)
+    {
+        return $this -> where('id', $id)->first();
     }
 }
