@@ -1,4 +1,46 @@
-// ===== Dashboard Module =====
+function updateWater(glasses) {
+
+    const formData = new URLSearchParams();
+    formData.append("glasses", glasses);
+
+    fetch("/dashboard/updateWater", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: formData
+    })
+    .then(async (response) => {
+
+        if (!response.ok) {
+            const text = await response.text();
+            console.error("Erro do servidor:", text);
+            throw new Error("Erro no servidor: " + response.status);
+        }
+
+        return response.json();
+    })
+    .then(data => {
+
+        if (!data.success) return;
+
+        const drops = document.querySelectorAll("#water-tracker .water-drop");
+
+        drops.forEach((drop, index) => {
+            drop.classList.toggle("filled", index < data.glasses);
+        });
+
+        const counter = document.getElementById("water-count");
+        if (counter) {
+            counter.textContent = data.glasses;
+        }
+
+    })
+    .catch(error => {
+        console.error("Erro ao atualizar água:", error);
+    });
+
+}
 
 function renderDashboard() {
     const { todayData, user } = AppState;
@@ -176,14 +218,6 @@ function renderMealSection(mealType, title, foods) {
             `}
         </div>
     `;
-}
-
-
-function updateWater(amount) {
-    AppState.todayData.water = amount;
-    saveAppData();
-    loadPage('dashboard');
-    showToast(`Água atualizada: ${amount}/8 copos`);
 }
 
 function openAddFoodForMeal(mealType) {

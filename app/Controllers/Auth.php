@@ -3,14 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\WaterModel;
 
 class Auth extends BaseController
 {
     protected $userModel;
+    protected $waterModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->waterModel = new WaterModel();
+
+
         helper('auth');
     }
 
@@ -68,7 +73,7 @@ class Auth extends BaseController
         $rules = [
             'name'     => 'required|min_length[3]',
             // is_unique garante que ninguém crie duas contas com o mesmo email na tabela users
-            'email'    => 'required|valid_email|is_unique[users.user_email]', 
+            'email'    => 'required|valid_email|is_unique[users.email]', 
             'password' => 'required|min_length[4]',
             'confirm'  => 'matches[password]' // Garante que a confirmação de senha é idêntica
         ];
@@ -95,7 +100,23 @@ class Auth extends BaseController
             'password' => $hashedPassword
         ]);
 
-        // 6. Tudo certo! Redireciona para o login com mensagem de sucesso
+        $user = $this->userModel->findByEmail($email);
+
+        session()->set([
+            'id'   => $user['id'],
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'logged_in' => true
+        ]);
+
+        // 6. Salvando no banco de dados o waterModel
+        $this->waterModel->insert([
+            'user_id' => $user['id'],
+            'glasses' => 0,
+            'log_date' => date('Y-m-d')
+        ]);
+
+        // 7. Tudo certo! Redireciona para o login com mensagem de sucesso
         session()->setFlashdata('success', 'Conta criada com sucesso! Agora você já pode entrar.');
         return redirect()->to('auth');
     }

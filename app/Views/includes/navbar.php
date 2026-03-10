@@ -29,8 +29,8 @@
 
                     <div id="user-dropdown" class="hidden absolute right-0 top-12 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
                         <div class="px-4 py-3 border-b border-gray-100">
-                            <p class="font-semibold text-gray-800" id="dropdown-name"><?= esc(session()->get('user_name')) ?></p>
-                            <p class="text-sm text-gray-500" id="dropdown-email"><?= esc(session()->get('user_email')) ?></p>
+                            <p class="font-semibold text-gray-800" id="dropdown-name"><?= esc(user()['name']) ?></p>
+                            <p class="text-sm text-gray-500" id="dropdown-email"><?= esc(user()['email']) ?></p>
                         </div>
                         <div class="py-1">
                             <button onclick="navigateToPage('profile'); toggleUserMenu();" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 text-gray-700 text-left">
