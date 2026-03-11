@@ -47,7 +47,7 @@
 
                 <div class="relative h-40 overflow-hidden">
                     <img src="<?= esc($recipe['imagem'] ?? 'https://via.placeholder.com/400x200?text=Receita') ?>"
-                        alt="<?= esc($recipe['name']) ?>"
+                        alt="<?= esc($recipe['nome']) ?>"
                         class="recipe-image w-full h-full object-cover"
                         onerror="this.src='https://via.placeholder.com/400x200?text=Receita'">
 
@@ -58,20 +58,20 @@
 
                 <div class="p-4">
                     <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                        <span><?= esc($recipe['categoria_nome'] ?? 'Sem categoria') ?></span>
+                        <span><?= esc($recipe['categoria_id'] ?? 'Sem categoria') ?></span>
                         <span>•</span>
-                        <span>⏱️ <?= esc($recipe['recipe_tempo_reparo']) ?> min</span>
+                        <span>⏱️ <?= esc($recipe['tempo_preparo']) ?> min</span>
                     </div>
 
-                    <h3 class="font-bold text-gray-800 mb-2"><?= esc($recipe['recipe_nome']) ?></h3>
+                    <h3 class="font-bold text-gray-800 mb-2"><?= esc($recipe['nome']) ?></h3>
 
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-xs">
-                            <span class="text-red-500">P: <?= esc($recipe['protein'] ?? 0) ?>g</span>
-                            <span class="text-amber-500">C: <?= esc($recipe['carbs'] ?? 0) ?>g</span>
-                            <span class="text-blue-500">G: <?= esc($recipe['fat'] ?? 0) ?>g</span>
+                            <span class="text-red-500">P: <?= esc($recipe['proteina'] ?? 0) ?>g</span>
+                            <span class="text-amber-500">C: <?= esc($recipe['carboidratos'] ?? 0) ?>g</span>
+                            <span class="text-blue-500">G: <?= esc($recipe['gordura'] ?? 0) ?>g</span>
                         </div>
-                        <span class="font-bold text-primary"><?= esc($recipe['calories'] ?? 0) ?> kcal</span>
+                        <span class="font-bold text-primary"><?= esc($recipe['calorias'] ?? 0) ?> kcal</span>
                     </div>
                 </div>
 

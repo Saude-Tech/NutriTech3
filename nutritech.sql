@@ -186,22 +186,47 @@ CREATE TABLE `recipes` (
   `nome` varchar(255) NOT NULL,
   `ingredientes` text NOT NULL,
   `modo_preparo` text NOT NULL,
-  `tempo_reparo` int(11) DEFAULT 0,
-  `unidades` int(11) DEFAULT 0,
-  `porcoes` int(11) DEFAULT 0,
+  `tempo_preparo` int(11) DEFAULT 0,
   `regras` text DEFAULT NULL,
-  `restricao_alimentar` varchar(255) DEFAULT NULL,
   `dificuldade` varchar(50) DEFAULT 'Fácil',
   `category_id` int(11) DEFAULT NULL,
   `combinacao_id` int(11) DEFAULT NULL,
   `imagem` varchar(255) DEFAULT NULL,
-  `video` varchar(255) DEFAULT NULL,
   `calorias` int(11) DEFAULT 0,
   `proteina` decimal(5,2) DEFAULT 0.00,
   `carboidratos` decimal(5,2) DEFAULT 0.00,
   `gordura` decimal(5,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+INSERT INTO `recipes` (`id`, `nome`, `ingredientes`, `modo_preparo`, `tempo_preparo`, `regras`, `dificuldade`, `category_id`, `combinacao_id`, `imagem`, `calorias`, `proteina`, `carboidratos`, `gordura`) VALUES
+-- CAFÉ DA MANHÃ (category_id = 1)
+(1, 'Panqueca de Banana Fit', '1 banana madura, 2 ovos, 2 colheres de sopa de aveia.', 'Amasse a banana, misture com os ovos e a aveia. Doure os dois lados em uma frigideira antiaderente.', 10, 'Sem lactose', 'Fácil', 1, NULL, NULL, 280, 14.00, 35.00, 10.00),
+(2, 'Ovos Mexidos com Espinafre', '2 ovos, 1 xícara de espinafre, sal a gosto.', 'Refogue o espinafre levemente, adicione os ovos batidos e mexa até cozinhar.', 5, 'Low carb', 'Fácil', 1, NULL, NULL, 150, 13.00, 2.00, 10.00),
+(3, 'Aveia Adormecida (Overnight Oats)', '3 colheres de aveia, 1/2 xícara de leite desnatado, 1 colher de chia, frutas picadas.', 'Misture a aveia, o leite e a chia. Deixe na geladeira durante a noite. Adicione frutas de manhã.', 5, 'Vegetariano', 'Fácil', 1, NULL, NULL, 220, 9.00, 38.00, 4.00),
+(4, 'Tapioca de Queijo Branco', '3 colheres de goma de tapioca, 1 fatia grossa de queijo branco.', 'Espalhe a goma na frigideira. Quando unir, vire, adicione o queijo, dobre e espere derreter.', 5, 'Sem glúten', 'Fácil', 1, NULL, NULL, 210, 8.00, 35.00, 5.00),
+(5, 'Vitamina de Mamão com Linhaça', '1 fatia de mamão, 200ml de leite, 1 colher de linhaça triturada.', 'Bata todos os ingredientes no liquidificador e sirva gelado.', 5, 'Rico em fibras', 'Fácil', 1, NULL, NULL, 160, 7.00, 22.00, 5.00),
+
+-- ALMOÇO (category_id = 2)
+(6, 'Frango Grelhado com Batata Doce', '150g de peito de frango, 100g de batata doce cozida, temperos a gosto.', 'Grelhe o frango temperado e sirva com a batata doce cozida em rodelas.', 20, 'Alto teor proteico', 'Fácil', 2, NULL, NULL, 320, 35.00, 25.00, 6.00),
+(7, 'Salada de Quinoa com Legumes', '1/2 xícara de quinoa cozida, tomate, cenoura ralada, pepino, azeite.', 'Misture a quinoa já cozida com os vegetais picados e tempere com azeite e sal.', 15, 'Vegano', 'Fácil', 2, NULL, NULL, 250, 8.00, 35.00, 9.00),
+(8, 'Estrogonofe Saudável', '150g de frango em cubos, 3 colheres de molho de tomate, 2 colheres de iogurte natural.', 'Doure o frango, adicione o molho e desligue o fogo. Misture o iogurte natural para dar cremosidade.', 20, 'Baixa caloria', 'Média', 2, NULL, NULL, 290, 36.00, 10.00, 11.00),
+(9, 'Filé de Peixe Assado com Brócolis', '1 filé de tilápia, 1 xícara de brócolis, azeite, limão.', 'Tempere o peixe com limão e sal. Asse no forno junto com o brócolis por 20 minutos.', 25, 'Rico em ômega 3', 'Fácil', 2, NULL, NULL, 210, 28.00, 8.00, 7.00),
+(10, 'Macarrão Integral ao Sugo', '100g de macarrão integral, molho de tomate caseiro, manjericão.', 'Cozinhe o macarrão. Aqueça o molho com manjericão fresco e misture.', 15, 'Energético', 'Fácil', 2, NULL, NULL, 310, 12.00, 60.00, 2.00),
+
+-- JANTAR (category_id = 3)
+(11, 'Sopa Creme de Abóbora', '200g de abóbora, 1/2 cebola, gengibre ralado, água.', 'Cozinhe a abóbora com cebola. Bata no liquidificador com a água do cozimento e gengibre.', 30, 'Low carb', 'Média', 3, NULL, NULL, 120, 3.00, 25.00, 1.00),
+(12, 'Omelete de Forno', '3 ovos, legumes variados picados (cenoura, abobrinha), cheiro verde.', 'Bata os ovos, misture os legumes e asse em um refratário por 15 minutos.', 20, 'Rico em proteínas', 'Fácil', 3, NULL, NULL, 230, 18.00, 5.00, 15.00),
+(13, 'Wrap de Frango com Alface', '1 pão folha (rap10), 2 colheres de frango desfiado, folhas de alface.', 'Aqueça a massa, coloque o frango, a alface, enrole e sirva.', 10, 'Lanche rápido', 'Fácil', 3, NULL, NULL, 200, 15.00, 22.00, 5.00),
+(14, 'Berinjela Recheada', '1/2 berinjela, 100g de carne moída magra, molho de tomate.', 'Retire o miolo da berinjela, recheie com a carne refogada no molho e asse.', 35, 'Low carb', 'Média', 3, NULL, NULL, 260, 25.00, 12.00, 12.00),
+(15, 'Salada Caprese com Rúcula', 'Folhas de rúcula, 1 tomate em rodelas, 3 fatias de mussarela de búfala, azeite.', 'Disponha a rúcula, intercale tomate e queijo e regue com azeite.', 10, 'Vegetariano', 'Fácil', 3, NULL, NULL, 240, 14.00, 5.00, 18.00),
+
+-- LANCHE (category_id = 4)
+(16, 'Iogurte com Frutas Vermelhas', '1 potinho de iogurte natural, 1 colher de morangos e mirtilos picados.', 'Basta misturar as frutas no iogurte e consumir.', 2, 'Rico em probióticos', 'Fácil', 4, NULL, NULL, 110, 7.00, 15.00, 3.00),
+(17, 'Mix de Castanhas', '3 castanhas do pará, 5 amêndoas, 2 nozes.', 'Misture e consuma. Cuidado com as porções.', 1, 'Gorduras boas', 'Fácil', 4, NULL, NULL, 180, 4.00, 6.00, 16.00),
+(18, 'Smoothie Verde Detox', '1 folha de couve, 1/2 maçã, lascas de gengibre, 150ml de água de coco.', 'Bata tudo no liquidificador até ficar homogêneo e beba sem coar.', 5, 'Detox', 'Fácil', 4, NULL, NULL, 80, 1.00, 18.00, 0.00),
+(19, 'Chips de Batata Doce', '1/2 batata doce fatiada bem fina, fio de azeite, sal.', 'Tempere as fatias, espalhe em uma forma e asse até ficarem crocantes.', 30, 'Snack saudável', 'Média', 4, NULL, NULL, 140, 2.00, 25.00, 4.00),
+(20, 'Biscoito de Aveia Caseiro', '1 xícara de aveia, 2 colheres de mel, 1 colher de pasta de amendoim.', 'Misture tudo, molde em formato de biscoito e asse por 15 minutos.', 20, 'Energético', 'Média', 4, NULL, NULL, 190, 6.00, 26.00, 8.00);
 -- --------------------------------------------------------
 
 --

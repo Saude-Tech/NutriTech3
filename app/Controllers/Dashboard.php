@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CategoryModel;
 use App\Models\RecipeModel;
 use App\Models\UserModel;
 use App\Models\WaterModel;
@@ -9,12 +10,14 @@ use App\Models\WaterModel;
 class Dashboard extends BaseController
 {
 
+    protected $categoryModel;
     protected $recipeModel;
     protected $waterModel;
     protected $userId;
 
     public function __construct()
     {
+        $this->categoryModel = new CategoryModel();
         $this->recipeModel = new RecipeModel();
         $this->userId = new UserModel();
         $this->waterModel = new WaterModel();
@@ -93,6 +96,16 @@ class Dashboard extends BaseController
             'javascript' => 'recipes',
             'recipes' => $this->recipeModel->allRecipes(),
         ];
+
+        $receitas = $this->recipeModel->allRecipes();
+
+        foreach ($receitas as &$recipe) {
+            // Usa o seu novo método para buscar a categoria
+            $categoria = $this->categoryModel->getByID($recipe['category_id']); 
+            
+            // Cria um novo índice no array chamado 'categoria_nome'
+            $recipe['categoria_nome'] = $categoria ? $categoria['name'] : 'Sem categoria';
+        }
 
         echo view('includes/header', $data);
         echo view('includes/navbar', $data);
