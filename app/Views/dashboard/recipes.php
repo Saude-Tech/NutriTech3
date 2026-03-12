@@ -46,7 +46,7 @@
             <div class="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer" onclick="openRecipeDetail(<?= esc($recipe['id']) ?>)">
 
                 <div class="relative h-40 overflow-hidden">
-                    <img src="<?= esc($recipe['imagem'] ?? 'https://via.placeholder.com/400x200?text=Receita') ?>"
+                    <img src="<?= base_url('assets/img/recipes/' . esc($recipe['imagem'])) ?>"
                         alt="<?= esc($recipe['nome']) ?>"
                         class="recipe-image w-full h-full object-cover"
                         onerror="this.src='https://via.placeholder.com/400x200?text=Receita'">
@@ -58,7 +58,7 @@
 
                 <div class="p-4">
                     <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                        <span><?= esc($recipe['categoria_id'] ?? 'Sem categoria') ?></span>
+                        <span><?= esc($recipe['categoria'] ?? 'Sem categoria') ?></span>
                         <span>•</span>
                         <span>⏱️ <?= esc($recipe['tempo_preparo']) ?> min</span>
                     </div>
@@ -67,7 +67,7 @@
 
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3 text-xs">
-                            <span class="text-red-500">P: <?= esc($recipe['proteina'] ?? 0) ?>g</span>
+                            <span class="text-red-500">P: <?= esc($recipe['proteinas'] ?? 0) ?>g</span>
                             <span class="text-amber-500">C: <?= esc($recipe['carboidratos'] ?? 0) ?>g</span>
                             <span class="text-blue-500">G: <?= esc($recipe['gordura'] ?? 0) ?>g</span>
                         </div>

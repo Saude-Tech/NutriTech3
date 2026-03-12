@@ -5,16 +5,19 @@ namespace App\Controllers;
 use App\Models\RecipeModel;
 use App\Models\UserModel;
 use App\Models\WaterModel;
+use App\Models\ReceitaIngredienteModel;
 
 class Dashboard extends BaseController
 {
 
+    protected $receitaIngredientesModel;
     protected $recipeModel;
     protected $waterModel;
     protected $userId;
 
     public function __construct()
     {
+        $this->receitaIngredientesModel = new ReceitaIngredienteModel();
         $this->recipeModel = new RecipeModel();
         $this->userId = new UserModel();
         $this->waterModel = new WaterModel();
@@ -30,7 +33,7 @@ class Dashboard extends BaseController
         $water = $this->waterModel->today(session('id'));
 
         $data = [
-            'water' => $water['glasses'] ?? 0,
+            'water' => $water['quantidade_ml'] ?? 0,
             'todayData' => [
                 'meals' => [
                     'breakfast' => [],
@@ -91,7 +94,7 @@ class Dashboard extends BaseController
             'style' => 'style',
             'style2' => 'recipes',
             'javascript' => 'recipes',
-            'recipes' => $this->recipeModel->allRecipes(),
+            'recipes' => $this->recipeModel->getReceitasComMacros(),
         ];
 
         echo view('includes/header', $data);
