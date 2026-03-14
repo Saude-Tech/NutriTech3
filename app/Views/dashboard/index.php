@@ -55,12 +55,10 @@ $offset = $circumference * (1 - ($percentage / 100));
                         </p>
                         <div class="space-y-2">
                             <div class="flex items-center justify-between text-sm">
-                                <span class="text-gray-600">Meta diária</span>
-                                <span class="font-medium"><?= formatar_numero($goal) ?> kcal</span>
+                                <span class="text-gray-600">Meta diária <span class="font-medium"><?= formatar_numero($goal) ?> kcal</span></span>
                             </div>
                             <div class="flex items-center justify-between text-sm">
-                                <span class="text-gray-600">Consumido</span>
-                                <span class="font-medium text-primary"><?= formatar_numero($consumed) ?> kcal</span>
+                                <span class="text-gray-600">Consumido <span class="font-medium text-primary"><?= formatar_numero($consumed) ?> kcal</span></span>
                             </div>
                         </div>
                     </div>

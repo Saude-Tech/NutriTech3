@@ -179,26 +179,26 @@ CREATE TABLE `receitas` (
 --
 
 INSERT INTO `receitas` (`id`, `nome`, `descricao`, `categoria`, `tempo_preparo`, `porcoes`, `imagem`, `criado_em`, `dificuldade`) VALUES
-(41, 'Omelete Fit', 'Omelete com ovos e queijo', 'cafe', 10, 1, 'omelete_fit.jpg', '2026-03-12 00:44:50', 'facil'),
+(41, 'Omelete Fit', 'Omelete com ovos e queijo', 'cafe', 10, 1, 'omelete_fit.png', '2026-03-12 00:44:50', 'facil'),
 (42, 'Panqueca de Banana', 'Panqueca de banana com aveia', 'cafe', 15, 2, 'panqueca_banana.png', '2026-03-12 00:44:50', 'facil'),
-(43, 'Vitamina de Banana', 'Banana batida com leite e aveia', 'cafe', 5, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(44, 'Tapioca com Frango', 'Tapioca recheada com frango', 'cafe', 10, 1, NULL, '2026-03-12 00:44:50', 'medio'),
-(45, 'Iogurte com Aveia', 'Iogurte natural com aveia', 'cafe', 3, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(46, 'Arroz com Frango', 'Arroz com peito de frango grelhado', 'almoco', 30, 2, NULL, '2026-03-12 00:44:50', 'medio'),
-(47, 'Frango com Batata Doce', 'Frango grelhado com batata doce', 'almoco', 35, 2, NULL, '2026-03-12 00:44:50', 'medio'),
-(48, 'Macarrão com Frango', 'Macarrão com frango desfiado', 'almoco', 25, 2, NULL, '2026-03-12 00:44:50', 'medio'),
-(49, 'Salada de Atum', 'Salada com atum', 'almoco', 10, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(50, 'Arroz Feijão Carne', 'Prato tradicional brasileiro', 'almoco', 40, 3, NULL, '2026-03-12 00:44:50', 'medio'),
-(51, 'Frango Grelhado', 'Frango grelhado com salada', 'jantar', 20, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(52, 'Omelete de Legumes', 'Omelete com legumes', 'jantar', 10, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(53, 'Sopa de Legumes', 'Sopa leve de legumes', 'jantar', 30, 2, NULL, '2026-03-12 00:44:50', 'medio'),
-(54, 'Wrap de Frango', 'Wrap integral com frango', 'jantar', 15, 1, NULL, '2026-03-12 00:44:50', 'medio'),
-(55, 'Arroz Integral com Legumes', 'Arroz integral com legumes', 'jantar', 25, 2, NULL, '2026-03-12 00:44:50', 'medio'),
-(56, 'Barra de Proteína', 'Barra caseira de aveia', 'lanche', 20, 4, NULL, '2026-03-12 00:44:50', 'medio'),
-(57, 'Sanduíche Natural', 'Pão integral com frango', 'lanche', 10, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(58, 'Banana com Pasta', 'Banana com pasta de amendoim', 'lanche', 3, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(59, 'Mix de Castanhas', 'Castanhas variadas', 'lanche', 1, 1, NULL, '2026-03-12 00:44:50', 'facil'),
-(60, 'Iogurte Proteico', 'Iogurte com whey', 'lanche', 2, 1, NULL, '2026-03-12 00:44:50', 'facil');
+(43, 'Vitamina de Banana', 'Banana batida com leite e aveia', 'cafe', 5, 1, 'vitamina_banana.png', '2026-03-12 00:44:50', 'facil'),
+(44, 'Tapioca com Frango', 'Tapioca recheada com frango', 'cafe', 10, 1, 'tapioca_frango.png', '2026-03-12 00:44:50', 'medio'),
+(45, 'Iogurte com Aveia', 'Iogurte natural com aveia', 'cafe', 3, 1, 'iogurte_aveia.png', '2026-03-12 00:44:50', 'facil'),
+(46, 'Arroz com Frango', 'Arroz com peito de frango grelhado', 'almoco', 30, 2, 'arroz_frango.png', '2026-03-12 00:44:50', 'medio'),
+(47, 'Frango com Batata Doce', 'Frango grelhado com batata doce', 'almoco', 35, 2, 'frango_batata_doce.png', '2026-03-12 00:44:50', 'medio'),
+(48, 'Macarrão com Frango', 'Macarrão com frango desfiado', 'almoco', 25, 2, 'macarrao_frango.png', '2026-03-12 00:44:50', 'medio'),
+(49, 'Salada de Atum', 'Salada com atum', 'almoco', 10, 1, 'salada_atum.png', '2026-03-12 00:44:50', 'facil'),
+(50, 'Arroz Feijão Carne', 'Prato tradicional brasileiro', 'almoco', 40, 3, 'arroz_feijao_carne.png', '2026-03-12 00:44:50', 'medio'),
+(51, 'Frango Grelhado', 'Frango grelhado com salada', 'jantar', 20, 1, 'frango_grelhado.png', '2026-03-12 00:44:50', 'facil'),
+(52, 'Omelete de Legumes', 'Omelete com legumes', 'jantar', 10, 1, 'omelete_legumes.png', '2026-03-12 00:44:50', 'facil'),
+(53, 'Sopa de Legumes', 'Sopa leve de legumes', 'jantar', 30, 2, 'sopa_legumes.png', '2026-03-12 00:44:50', 'medio'),
+(54, 'Wrap de Frango', 'Wrap integral com frango', 'jantar', 15, 1, 'wrap_frango.png', '2026-03-12 00:44:50', 'medio'),
+(55, 'Arroz Integral com Legumes', 'Arroz integral com legumes', 'jantar', 25, 2, 'arroz_integral_legumes.png', '2026-03-12 00:44:50', 'medio'),
+(56, 'Barra de Proteína', 'Barra caseira de aveia', 'lanche', 20, 4, 'barra_proteina.png', '2026-03-12 00:44:50', 'medio'),
+(57, 'Sanduíche Natural', 'Pão integral com frango', 'lanche', 10, 1, 'sanduiche_natural.png', '2026-03-12 00:44:50', 'facil'),
+(58, 'Banana com Pasta', 'Banana com pasta de amendoim', 'lanche', 3, 1, 'banana_pasta_amendoim.png', '2026-03-12 00:44:50', 'facil'),
+(59, 'Mix de Castanhas', 'Castanhas variadas', 'lanche', 1, 1, 'mix_castanhas.png', '2026-03-12 00:44:50', 'facil'),
+(60, 'Iogurte Proteico', 'Iogurte com whey', 'lanche', 2, 1, 'iogurte_proteico.png', '2026-03-12 00:44:50', 'facil');
 
 -- --------------------------------------------------------
 

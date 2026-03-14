@@ -23,6 +23,7 @@ class WaterModel extends Model
     public function today($userId)
     {
         return $this->where('usuario_id', $userId)
+                    ->where('DATE(data_registro)', date('Y-m-d'))
                     ->first();
     }
 

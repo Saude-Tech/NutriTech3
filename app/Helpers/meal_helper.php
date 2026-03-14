@@ -4,13 +4,21 @@ if (!function_exists('renderizar_secao_refeicao')) {
 
     function renderizar_secao_refeicao($key, $titulo, $refeicoes = [])
     {
+        $caloria = 0;
+
+        foreach ($refeicoes as $ref) {
+            $caloria += $ref['calorias'] ?? 0;
+        }
         $html = '<div class="bg-white rounded-xl shadow p-3">';
         $html .= '<div class="flex justify-between items-center">';
         $html .= '<h4 class="font-medium text-gray-700">'.$titulo.'</h4>';
+        $html .= '<div class"flex items center gap-2">';
+        $html .= '<span class="text-sm font-medium text-gray-600">'.$caloria.' kcal </span>';
         $html .= '<button onclick="openMealModal(\''.$key.'\')" 
                     class="text-sm bg-green-500 text-white px-2 py-1 rounded">
                     +
                   </button>';
+        $html .= '</div>';
         $html .= '</div>';
 
         if (empty($refeicoes)) {
