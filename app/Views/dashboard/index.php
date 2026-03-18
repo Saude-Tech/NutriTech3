@@ -154,10 +154,10 @@ $offset = $circumference * (1 - ($percentage / 100));
             <div class="space-y-3">
                 <h3 class="font-semibold text-gray-800">Refeições de Hoje</h3>
 
-                <?= renderizar_secao_refeicao('breakfast', '☀️ Café da Manhã', $todayData['meals']['breakfast']) ?>
-                <?= renderizar_secao_refeicao('lunch', '🍽️ Almoço', $todayData['meals']['lunch']) ?>
-                <?= renderizar_secao_refeicao('dinner', '🌙 Jantar', $todayData['meals']['dinner']) ?>
-                <?= renderizar_secao_refeicao('snack', '🍎 Lanches', $todayData['meals']['snack']) ?>
+                <?= renderizar_secao_refeicao('cafe', '☀️ Café da Manhã', $todayData['cafe']) ?>
+                <?= renderizar_secao_refeicao('almoco', '🍽️ Almoço', $todayData['almoco']) ?>
+                <?= renderizar_secao_refeicao('jantar', '🌙 Jantar', $todayData['jantar']) ?>
+                <?= renderizar_secao_refeicao('lanche', '🍎 Lanches', $todayData['lanche']) ?>
 
             </div>
 

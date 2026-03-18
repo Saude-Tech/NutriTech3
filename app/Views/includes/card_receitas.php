@@ -10,7 +10,7 @@
                 <img src="<?= base_url('assets/img/recipes/' . esc($recipe['imagem'])) ?>"
                     alt="<?= esc($recipe['nome']) ?>"
                     class="recipe-image w-full h-full object-cover"
-                    onerror="this.src='https://via.placeholder.com/400x200?text=Receita'">
+                    onerror="this.src='https://picsum.photos/200/400'">
 
                 <div class="absolute top-2 right-2 px-2 py-1 bg-white/90 rounded-full text-xs font-medium">
                     <?= esc($recipe['dificuldade']) ?>

@@ -6,6 +6,7 @@ use App\Models\RecipeModel;
 use App\Models\UserModel;
 use App\Models\WaterModel;
 use App\Models\ReceitaIngredienteModel;
+use App\Models\RefeicoesUserModel;
 
 class Dashboard extends BaseController
 {
@@ -14,17 +15,21 @@ class Dashboard extends BaseController
     protected $recipeModel;
     protected $waterModel;
     protected $userId;
+    protected $refeicoesUser;
 
     public function __construct()
     {
         $this->receitaIngredientesModel = new ReceitaIngredienteModel();
+
         $this->recipeModel = new RecipeModel();
         $this->userId = new UserModel();
         $this->waterModel = new WaterModel();
+        $this->refeicoesUser = new RefeicoesUserModel();
+
 
         helper('auth'); // se você tiver helpers de autenticação
         helper('nutrition');
-        helper(['macro']);
+        helper('macro');
         helper('meal');
     }
 
@@ -32,21 +37,29 @@ class Dashboard extends BaseController
     {
         $water = $this->waterModel->today(session('id'));
 
+        $dadosHoje = $this->refeicoesUser->getAllReceitasHoje(session('id'));
+
+        $refeicoesAgrupadas = [
+            'cafe' => [],
+            'almoco' => [],
+            'jantar' => [],
+            'lanche' => [],
+        ];
+
+        foreach ($dadosHoje as $ref) {
+            $tipo = $ref['tipo_refeicao']; // ex: 'cafe', 'almoco', 'jantar'
+            $refeicoesAgrupadas[$tipo][] = $ref;
+        }
         $data = [
             'water' => $water['quantidade_ml'] ?? 0,
-            'todayData' => [
-                'meals' => [
-                    'breakfast' => [],
-                    'lunch' => [],
-                    'dinner' => [],
-                    'snack' => []
-                ]
-            ],
+            'todayData' => $refeicoesAgrupadas,
             'title' => '',
             'style' => 'style',
             'style2' => 'dashboard',
             'javascript' => 'dashboard'
         ];
+
+
 
         echo view('includes/header', $data);
         echo view('includes/navbar', $data);
@@ -127,4 +140,10 @@ class Dashboard extends BaseController
 
         return view('includes/card_receitas', ['recipes' => $recipes]);
     }
+
+    public function adicionarReceita()
+    {
+        
+    }
+
 }
