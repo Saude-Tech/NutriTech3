@@ -11,9 +11,9 @@ if (!function_exists('macros_hoje')) {
 
         $result = $db->table('refeicoes_usuario ru')
             ->select('
-                SUM(a.proteinas * ri.quantidade) as proteinas,
-                SUM(a.carboidratos * ri.quantidade) as carboidratos,
-                SUM(a.gorduras * ri.quantidade) as gorduras
+                SUM(a.proteinas / 100 * ri.quantidade) as proteinas,
+                SUM(a.carboidratos / 100 * ri.quantidade) as carboidratos,
+                SUM(a.gorduras / 100 * ri.quantidade) as gorduras
             ')
             ->join('receitas r', 'r.id = ru.receita_id')
             ->join('receita_ingredientes ri', 'ri.receita_id = r.id')

@@ -1,5 +1,5 @@
 <?php
-$userId = session('user_id');
+$userId = session('id');
 
 $macros = macros_hoje($userId);
 $goals = metas_macros($userId);
@@ -100,10 +100,13 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xl font-bold text-gray-800"><?= $macros['proteinas'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['proteinas'] ?>g meta</p>
 
-                    <div class="h-full bg-red-400 rounded-full macro-bar"
-                        style="width: <?= percentual_macro($macros['proteinas'], $goals['proteinas']) ?>%">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
+                        
+                        <div class="h-full bg-red-400 rounded-full macro-bar"
+                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['proteinas'], $goals['proteinas']))))) ?>%">
+                        </div>
+                        
                     </div>
-
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
@@ -113,8 +116,12 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xl font-bold text-gray-800"><?= $macros['carboidratos'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['carboidratos'] ?>g meta</p>
 
-                    <div class="h-full bg-amber-400 rounded-full macro-bar"
-                        style="width: <?= percentual_macro($macros['carboidratos'], $goals['carboidratos']) ?>%">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
+                        
+                        <div class="h-full bg-amber-400 rounded-full macro-bar"
+                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%">
+                        </div>
+                        
                     </div>
 
                 </div>
@@ -126,8 +133,12 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xl font-bold text-gray-800"><?= $macros['gorduras'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['gorduras'] ?>g meta</p>
 
-                    <div class="h-full bg-blue-400 rounded-full macro-bar"
-                        style="width: <?= percentual_macro($macros['gorduras'], $goals['gorduras']) ?>%">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
+                        
+                        <div class="h-full bg-blue-400 rounded-full macro-bar"
+                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%">
+                        </div>
+                        
                     </div>
 
                 </div>

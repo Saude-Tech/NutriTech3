@@ -91,7 +91,7 @@
 
 <script src="recipes.js"></script>
 <script>
-        let termoPesquisa = "";
+    let termoPesquisa = "";
     let categoriaAtual = "all";
 
     // Função para abrir o modal e carregar os dados
@@ -157,7 +157,7 @@
         document.getElementById('recipe-modal').classList.add('hidden');
     }
 
-        function filterRecipes(valor) {
+    function filterRecipes(valor) {
         termoPesquisa = valor;
         atualizarCards();
     }
@@ -176,7 +176,7 @@
 
         atualizarCards();
     }
-        async function atualizarCards() {
+    async function atualizarCards() {
         try {
             const url = `<?= base_url('receitas/filtrar') ?>?categoria=${categoriaAtual}&busca=${termoPesquisa}`;
 
