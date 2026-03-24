@@ -89,4 +89,16 @@ class Receitas extends BaseController
 
         return $this->response->setStatusCode(400)->setJSON(['success' => false]);
     }
+
+        public function remover()
+    {
+        $refeicaoId = (int) $this->request->getPost('id');
+
+        $this->refeicoesUser->delete($refeicaoId);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Alimento removido com sucesso'
+        ]);
+    }
 }

@@ -34,9 +34,21 @@ if (!function_exists('renderizar_secao_refeicao')) {
                 $nome = $refeicao['nome'] ?? 'Receita';
                 $calorias = $refeicao['calorias'] ?? 0;
 
-                $html .= '<li class="flex justify-between">';
+                $html .= '<li class="flex justify-between items-center">';
                 $html .= '<span>'.$nome.'</span>';
+
+                $html .= '<div class="flex items-center gap-2">';
                 $html .= '<span class="text-gray-400">'.$calorias.' kcal</span>';
+                $html .= '<form method="POST" action="'.base_url('receitas/remover').'" class="inline">';
+                $html .= '<input type="hidden" name="id" value="'.($refeicao['refeicao_usuario_id']).'">';
+                $html .= '<button 
+                            type="submit"
+                            class="text-red-500 hover:text-red-700 font-bold">
+                            &times;
+                        </button>';
+                $html .= '</form>';
+                $html .= '</div>';
+
                 $html .= '</li>';
             }
 

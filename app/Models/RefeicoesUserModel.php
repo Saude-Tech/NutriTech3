@@ -27,6 +27,7 @@ public function getAllReceitasHoje($user)
     return $this->db
         ->table('refeicoes_usuario ru')
         ->select('
+            ru.id as refeicao_usuario_id,
             ru.tipo_refeicao,
             r.id,
             r.nome,
