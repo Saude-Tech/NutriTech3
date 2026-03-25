@@ -1,385 +1,288 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - NutriTech</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/profile.css') ?>">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#22c55e',
-                        secondary: '#16a34a',
-                        accent: '#86efac'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="max-w-lg mx-auto">
-        <!-- Profile Header -->
-        <header class="profile-header">
-            <div class="header-bg"></div>
-            <div class="header-content">
-                <div class="avatar-container">
-                    <div class="avatar">J</div>
-                    <button class="avatar-edit">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                    </button>
-                </div>
-                <h1 class="profile-name">João Silva</h1>
-                <p class="profile-email">joao.silva@email.com</p>
-                <button class="edit-profile-btn" onclick="openEditModal()">
-                    ✏️ Editar Perfil
-                </button>
-            </div>
-        </header>
+       <div class="p-4 space-y-6 animate-fade-in">
+           <!-- Profile Header -->
+           <div class="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 text-white">
+               <div class="flex items-center gap-4">
+                   <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold text-primary">
+                       ${user.name.charAt(0)}
+                   </div>
+                   <div>
+                       <h2 class="text-xl font-bold"><?= $user['nome'] ?></h2>
+                       <p class="text-green-100"><?= $user['email'] ?></p>
+                       <button onclick="openEditProfile()" class="mt-2 px-3 py-1 bg-white/20 rounded-full text-sm hover:bg-white/30 transition-colors">
+                           ✏️ Editar perfil
+                       </button>
+                   </div>
+               </div>
+           </div>
 
-        <!-- Main Content -->
-        <main class="p-4 pb-24 space-y-4" style="margin-top: -2rem;">
-            <!-- Stats Grid -->
-            <section class="stats-grid">
-                <div class="stat-card">
-                    <p class="stat-label">Peso Atual</p>
-                    <p class="stat-value">75 <span>kg</span></p>
-                </div>
-                <div class="stat-card highlight">
-                    <p class="stat-label">Meta de Peso</p>
-                    <p class="stat-value">70 <span>kg</span></p>
-                </div>
-                <div class="stat-card">
-                    <p class="stat-label">Altura</p>
-                    <p class="stat-value">175 <span>cm</span></p>
-                </div>
-                <div class="stat-card">
-                    <p class="stat-label">IMC</p>
-                    <p class="stat-value bmi-normal">24.5</p>
-                    <p class="stat-sublabel">Normal</p>
-                </div>
-            </section>
+           <!-- Stats Grid -->
+           <div class="grid grid-cols-2 gap-4">
+               <div class="bg-white rounded-2xl p-4 shadow-sm">
+                   <p class="text-sm text-gray-500">Peso Atual</p>
+                   <p class="text-2xl font-bold text-gray-800">${user.currentWeight} <span class="text-sm font-normal">kg</span></p>
+               </div>
+               <div class="bg-white rounded-2xl p-4 shadow-sm border-2 border-primary/20">
+                   <p class="text-sm text-gray-500">Meta de Peso</p>
+                   <p class="text-2xl font-bold text-primary">${user.targetWeight} <span class="text-sm font-normal">kg</span></p>
+               </div>
+               <div class="bg-white rounded-2xl p-4 shadow-sm">
+                   <p class="text-sm text-gray-500">Altura</p>
+                   <p class="text-2xl font-bold text-gray-800"><?= $user['altura'] ?> <span class="text-sm font-normal">cm</span></p>
+               </div>
+               <div class="bg-white rounded-2xl p-4 shadow-sm">
+                   <p class="text-sm text-gray-500">IMC</p>
+                   <p class="text-2xl font-bold ${bmiCategory.color}">${bmi.toFixed(1)}</p>
+                   <p class="text-xs text-gray-400">${bmiCategory.label}</p>
+               </div>
+           </div>
 
-            <!-- Calorie Goal -->
-            <section class="calorie-goal-section">
-                <div class="section-header">
-                    <h2>Meta Calórica Diária</h2>
-                    <button class="adjust-btn" onclick="openCalorieModal()">Ajustar</button>
-                </div>
-                <div class="calorie-goal-content">
-                    <div class="calorie-icon">🔥</div>
-                    <div class="calorie-info">
-                        <p class="calorie-value">2,000</p>
-                        <p class="calorie-unit">calorias por dia</p>
-                    </div>
-                </div>
-                <p class="calorie-note">* Baseado no seu perfil e nível de atividade: Moderadamente Ativo</p>
-            </section>
+           <!-- Daily Goal -->
+           <div class="bg-white rounded-2xl p-4 shadow-sm">
+               <div class="flex items-center justify-between mb-4">
+                   <h3 class="font-semibold text-gray-800">Meta Calórica Diária</h3>
+                   <button onclick="openCalorieGoalModal()" class="text-primary text-sm font-medium hover:underline">Ajustar</button>
+               </div>
+               <div class="flex items-center gap-4">
+                   <div class="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
+                       <span class="text-2xl">🔥</span>
+                   </div>
+                   <div class="flex-1">
+                       <p class="text-3xl font-bold text-gray-800">${formatNumber(user.dailyCalorieGoal)}</p>
+                       <p class="text-sm text-gray-500">calorias por dia</p>
+                   </div>
+               </div>
+           </div>
 
             <!-- Activity Level -->
-            <section class="activity-section">
-                <h2>Nível de Atividade</h2>
-                <div class="activity-options">
-                    <button class="activity-option">
-                        <span class="activity-emoji">🛋️</span>
-                        <div class="activity-info">
-                            <p class="activity-title">Sedentário</p>
-                            <p class="activity-desc">Pouco ou nenhum exercício</p>
-                        </div>
-                    </button>
-                    <button class="activity-option">
-                        <span class="activity-emoji">🚶</span>
-                        <div class="activity-info">
-                            <p class="activity-title">Levemente Ativo</p>
-                            <p class="activity-desc">Exercício leve 1-3 dias/semana</p>
-                        </div>
-                    </button>
-                    <button class="activity-option active">
-                        <span class="activity-emoji">🏃</span>
-                        <div class="activity-info">
-                            <p class="activity-title">Moderadamente Ativo</p>
-                            <p class="activity-desc">Exercício moderado 3-5 dias/semana</p>
-                        </div>
-                        <span class="activity-check">✓</span>
-                    </button>
-                    <button class="activity-option">
-                        <span class="activity-emoji">💪</span>
-                        <div class="activity-info">
-                            <p class="activity-title">Muito Ativo</p>
-                            <p class="activity-desc">Exercício intenso 6-7 dias/semana</p>
-                        </div>
-                    </button>
-                    <button class="activity-option">
-                        <span class="activity-emoji">🏋️</span>
-                        <div class="activity-info">
-                            <p class="activity-title">Extremamente Ativo</p>
-                            <p class="activity-desc">Exercício muito intenso ou trabalho físico</p>
-                        </div>
-                    </button>
-                </div>
-            </section>
+            <div class="bg-white rounded-2xl p-4 shadow-sm">
+                <h3 class="font-semibold text-gray-800 mb-4">Nível de Atividade</h3>
 
-            <!-- Settings -->
-            <section class="settings-section">
-                <h2>Configurações</h2>
-                <div class="settings-list">
-                    <button class="setting-item">
-                        <div class="setting-info">
-                            <span class="setting-icon">🔔</span>
-                            <div>
-                                <p class="setting-title">Notificações</p>
-                                <p class="setting-desc">Lembretes de refeições e água</p>
-                            </div>
-                        </div>
-                        <div class="toggle-switch active" onclick="toggleSwitch(this, event)"></div>
-                    </button>
-                    <button class="setting-item">
-                        <div class="setting-info">
-                            <span class="setting-icon">🌙</span>
-                            <div>
-                                <p class="setting-title">Modo Escuro</p>
-                                <p class="setting-desc">Em breve</p>
-                            </div>
-                        </div>
-                        <div class="toggle-switch" onclick="toggleSwitch(this, event)"></div>
-                    </button>
-                    <button class="setting-item">
-                        <div class="setting-info">
-                            <span class="setting-icon">📤</span>
-                            <div>
-                                <p class="setting-title">Exportar Dados</p>
-                                <p class="setting-desc">Baixar histórico em JSON</p>
-                            </div>
-                        </div>
-                        <svg class="setting-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                    <button class="setting-item danger">
-                        <div class="setting-info">
-                            <span class="setting-icon">🗑️</span>
-                            <div>
-<button class="setting-item" onclick="logout()">
-    <div class="setting-info">
-        <span class="setting-icon">🚪</span>
-        <div>
-            <p class="setting-title">Sair da Conta</p>
-            <p class="setting-desc">Encerrar sessão atual</p>
-        </div>
-    </div>
-    <svg class="setting-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-    </svg>
-</button>
-                                <p class="setting-title">Resetar Dados</p>
-                                <p class="setting-desc">Apagar todo o histórico</p>
-                            </div>
-                        </div>
-                        <svg class="setting-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
+                <div class="space-y-2">
+                    <?= activity_option('sedentario', 'Sedentário', 'Pouco ou nenhum exercício', '🛋️', $activity ?? null) ?>
+                    
+                    <?= activity_option('leve', 'Levemente Ativo', 'Exercício leve 1-3 dias/semana', '🚶', $activity ?? null) ?>
+                    
+                    <?= activity_option('moderado', 'Moderadamente Ativo', 'Exercício moderado 3-5 dias/semana', '🏃', $activity ?? null) ?>
+                    
+                    <?= activity_option('ativo', 'Muito Ativo', 'Exercício intenso 6-7 dias/semana', '💪', $activity ?? null) ?>
                 </div>
-            </section>
-
-            <!-- App Info -->
-            <div class="app-info">
-                <p class="app-version">NutriTech v1.0.0</p>
-                <p class="app-made">Feito com 💚 para sua saúde</p>
             </div>
-        </main>
 
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <a href="../dashboard/dashboard.html" class="nav-item">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
-                <span>Início</span>
-            </a>
-            <a href="../recipes/recipes.html" class="nav-item">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-                <span>Receitas</span>
-            </a>
-            <button class="nav-item add-btn">
-                <div class="add-btn-circle">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                </div>
-                <span>Adicionar</span>
-            </button>
-            <a href="#" class="nav-item">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-                <span>Estatísticas</span>
-            </a>
-            <a href="profile.html" class="nav-item active">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-                <span>Perfil</span>
-            </a>
-        </nav>
-    </div>
+           <!-- Settings -->
+           <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+               <h3 class="font-semibold text-gray-800 p-4 border-b border-gray-100">Configurações</h3>
 
-    <!-- Edit Profile Modal -->
-    <div id="edit-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Perfil</h2>
-                <button onclick="closeEditModal()" class="modal-close">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <form class="modal-form" onsubmit="saveProfile(event)">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" value="João Silva" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" value="joao.silva@email.com" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Peso Atual (kg)</label>
-                        <input type="number" value="75" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Meta de Peso (kg)</label>
-                        <input type="number" value="70" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Altura (cm)</label>
-                        <input type="number" value="175" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Idade</label>
-                        <input type="number" value="28" required>
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn">Salvar Alterações</button>
-            </form>
-        </div>
-    </div>
+               <button class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl">🔔</span>
+                       <div class="text-left">
+                           <p class="font-medium text-gray-800">Notificações</p>
+                           <p class="text-xs text-gray-500">Lembretes de refeições e água</p>
+                       </div>
+                   </div>
+                   <div class="w-12 h-6 bg-primary rounded-full relative">
+                       <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
+                   </div>
+               </button>
 
-    <!-- Calorie Goal Modal -->
-    <div id="calorie-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Meta Calórica</h2>
-                <button onclick="closeCalorieModal()" class="modal-close">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="calorie-modal-body">
-                <div class="calorie-input-section">
-                    <p class="calorie-input-label">Meta diária de calorias</p>
-                    <input type="number" id="calorie-input" value="2000" class="calorie-input">
-                    <p class="calorie-input-unit">kcal</p>
-                </div>
-                <div class="calorie-suggestions">
-                    <p class="suggestions-label">Sugestões baseadas no seu perfil:</p>
-                    <button class="suggestion-btn" onclick="setCalorie(1700)">
-                        <div>
-                            <p class="suggestion-title">🔥 Perder peso</p>
-                            <p class="suggestion-value">1,700 kcal/dia</p>
-                        </div>
-                    </button>
-                    <button class="suggestion-btn" onclick="setCalorie(2000)">
-                        <div>
-                            <p class="suggestion-title">⚖️ Manter peso</p>
-                            <p class="suggestion-value">2,000 kcal/dia</p>
-                        </div>
-                    </button>
-                    <button class="suggestion-btn" onclick="setCalorie(2300)">
-                        <div>
-                            <p class="suggestion-title">💪 Ganhar massa</p>
-                            <p class="suggestion-value">2,300 kcal/dia</p>
-                        </div>
-                    </button>
-                </div>
-                <button class="submit-btn" onclick="saveCalorie()">Salvar Meta</button>
-            </div>
-        </div>
-    </div>
+               <button onclick="exportData()" class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl">📤</span>
+                       <div class="text-left">
+                           <p class="font-medium text-gray-800">Exportar Dados</p>
+                           <p class="text-xs text-gray-500">Baixar histórico em JSON</p>
+                       </div>
+                   </div>
+                   <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                   </svg>
+               </button>
 
-    <script src="<?= base_url('assets/js/profile.js') ?>"></script>
-    <script>
-        function openEditModal() {
-            document.getElementById('edit-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+               <!-- LOGOUT BUTTON -->
+               <button onclick="logout()" class="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors border-b border-gray-100">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl">🚪</span>
+                       <div class="text-left">
+                           <p class="font-medium text-red-600">Sair da Conta</p>
+                           <p class="text-xs text-red-400">Encerrar sessão atual</p>
+                       </div>
+                   </div>
+                   <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                   </svg>
+               </button>
 
-        function closeEditModal() {
-            document.getElementById('edit-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
+               <button onclick="resetData()" class="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl">🗑️</span>
+                       <div class="text-left">
+                           <p class="font-medium text-red-600">Resetar Dados</p>
+                           <p class="text-xs text-red-400">Apagar todo o histórico</p>
+                       </div>
+                   </div>
+                   <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                   </svg>
+               </button>
+           </div>
 
-        function saveProfile(e) {
-            e.preventDefault();
-            alert('Perfil atualizado!');
-            closeEditModal();
-        }
+           <!-- App Info -->
+           <div class="text-center py-4">
+               <p class="text-sm text-gray-400">NutriTech v1.0.0</p>
+               <p class="text-xs text-gray-300 mt-1">Feito com 💚 para sua saúde</p>
+           </div>
+       </div>
 
-        function openCalorieModal() {
-            document.getElementById('calorie-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
+       <!-- Edit Profile Modal -->
+       <div id="edit-profile-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+           <div class="bg-white rounded-2xl w-full max-w-md animate-slide-up">
+               <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                   <h2 class="text-lg font-bold text-gray-800">Editar Perfil</h2>
+                   <button onclick="closeEditProfile()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                       <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                       </svg>
+                   </button>
+               </div>
+               <form id="edit-profile-form" onsubmit="saveProfile(event)" class="p-4 space-y-4">
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+                       <input type="text" name="name" value="${user.name}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                   </div>
+                   <div>
+                       <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                       <input type="email" name="email" value="${user.email}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                   </div>
+                   <div class="grid grid-cols-2 gap-3">
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Peso Atual (kg)</label>
+                           <input type="number" name="currentWeight" value="${user.currentWeight}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                       </div>
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Meta de Peso (kg)</label>
+                           <input type="number" name="targetWeight" value="${user.targetWeight}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                       </div>
+                   </div>
+                   <div class="grid grid-cols-2 gap-3">
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Altura (cm)</label>
+                           <input type="number" name="height" value="${user.height}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                       </div>
+                       <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-1">Idade</label>
+                           <input type="number" name="age" value="${user.age}" required class="w-full px-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
+                       </div>
+                   </div>
+                   <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-medium hover:opacity-90 transition-opacity">
+                       Salvar Alterações
+                   </button>
+               </form>
+           </div>
+       </div>
 
-        function closeCalorieModal() {
-            document.getElementById('calorie-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
+       <!-- Calorie Goal Modal -->
+       <div id="calorie-goal-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+           <div class="bg-white rounded-2xl w-full max-w-md animate-slide-up">
+               <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+                   <h2 class="text-lg font-bold text-gray-800">Meta Calórica</h2>
+                   <button onclick="closeCalorieGoalModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                       <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                       </svg>
+                   </button>
+               </div>
+               <div class="p-4 space-y-4">
+                   <div class="text-center py-4">
+                       <p class="text-sm text-gray-500 mb-2">Meta diária de calorias</p>
+                       <input type="number" id="calorie-goal-input" value="${user.dailyCalorieGoal}" class="text-4xl font-bold text-center text-gray-800 bg-transparent w-32 focus:outline-none">
+                       <p class="text-gray-500">kcal</p>
+                   </div>
 
-        function setCalorie(value) {
-            document.getElementById('calorie-input').value = value;
-        }
+                   <div class="bg-gray-50 rounded-xl p-4">
+                       <p class="text-sm text-gray-600 mb-2">Sugestões:</p>
+                       <div class="space-y-2">
+                           <button onclick="setCalorieGoal(${calculateSuggestedCalories('lose')})" class="w-full py-2 px-4 bg-white rounded-lg text-left hover:bg-primary/10 transition-colors">
+                               <p class="font-medium text-gray-800">🔥 Perder peso</p>
+                               <p class="text-sm text-gray-500">${formatNumber(calculateSuggestedCalories('lose'))} kcal/dia</p>
+                           </button>
+                           <button onclick="setCalorieGoal(${calculateSuggestedCalories('maintain')})" class="w-full py-2 px-4 bg-white rounded-lg text-left hover:bg-primary/10 transition-colors">
+                               <p class="font-medium text-gray-800">⚖️ Manter peso</p>
+                               <p class="text-sm text-gray-500">${formatNumber(calculateSuggestedCalories('maintain'))} kcal/dia</p>
+                           </button>
+                           <button onclick="setCalorieGoal(${calculateSuggestedCalories('gain')})" class="w-full py-2 px-4 bg-white rounded-lg text-left hover:bg-primary/10 transition-colors">
+                               <p class="font-medium text-gray-800">💪 Ganhar massa</p>
+                               <p class="text-sm text-gray-500">${formatNumber(calculateSuggestedCalories('gain'))} kcal/dia</p>
+                           </button>
+                       </div>
+                   </div>
 
-        function saveCalorie() {
-            alert('Meta calórica atualizada!');
-            closeCalorieModal();
-        }
+                   <button onclick="saveCalorieGoal()" class="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-medium hover:opacity-90 transition-opacity">
+                       Salvar Meta
+                   </button>
+               </div>
+           </div>
+       </div>
 
-        function toggleSwitch(element, event) {
-            event.stopPropagation();
-            element.classList.toggle('active');
-        }
+       <script src="<?= base_url('assets/js/profile.js') ?>"></script>
+       <script>
+           function openEditModal() {
+               document.getElementById('edit-modal').classList.remove('hidden');
+               document.body.style.overflow = 'hidden';
+           }
 
-        // Activity selection
-        document.querySelectorAll('.activity-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('.activity-option').forEach(o => {
-                    o.classList.remove('active');
-                    const check = o.querySelector('.activity-check');
-                    if (check) check.remove();
-                });
-                option.classList.add('active');
-                if (!option.querySelector('.activity-check')) {
-                    const check = document.createElement('span');
-                    check.className = 'activity-check';
-                    check.textContent = '✓';
-                    option.appendChild(check);
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+           function closeEditModal() {
+               document.getElementById('edit-modal').classList.add('hidden');
+               document.body.style.overflow = '';
+           }
+
+           function saveProfile(e) {
+               e.preventDefault();
+               alert('Perfil atualizado!');
+               closeEditModal();
+           }
+
+           function openCalorieModal() {
+               document.getElementById('calorie-modal').classList.remove('hidden');
+               document.body.style.overflow = 'hidden';
+           }
+
+           function closeCalorieModal() {
+               document.getElementById('calorie-modal').classList.add('hidden');
+               document.body.style.overflow = '';
+           }
+
+           function setCalorie(value) {
+               document.getElementById('calorie-input').value = value;
+           }
+
+           function saveCalorie() {
+               alert('Meta calórica atualizada!');
+               closeCalorieModal();
+           }
+
+           function toggleSwitch(element, event) {
+               event.stopPropagation();
+               element.classList.toggle('active');
+           }
+
+           // Activity selection
+           document.querySelectorAll('.activity-option').forEach(option => {
+               option.addEventListener('click', () => {
+                   document.querySelectorAll('.activity-option').forEach(o => {
+                       o.classList.remove('active');
+                       const check = o.querySelector('.activity-check');
+                       if (check) check.remove();
+                   });
+                   option.classList.add('active');
+                   if (!option.querySelector('.activity-check')) {
+                       const check = document.createElement('span');
+                       check.className = 'activity-check';
+                       check.textContent = '✓';
+                       option.appendChild(check);
+                   }
+               });
+           });
+       </script>
+       </body>
+
+       </html>
