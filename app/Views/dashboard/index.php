@@ -181,7 +181,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-xl">💡</div>
                     <div>
                         <h4 class="font-semibold text-gray-800">Dica do Dia</h4>
-                        <p class="text-sm text-gray-600 mt-1">${getRandomTip()}</p>
+                        <p id="tip" class="text-sm text-gray-600 mt-1"></p>
                     </div>
                 </div>
             </div>
@@ -286,8 +286,10 @@ $offset = $circumference * (1 - ($percentage / 100));
 
 <script src="<?= base_url('assets/js/main.js') ?>"></script>
 <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
-<script src="base_url('assets/js/recipes.js')"></script>
-<script src="base_url('assets/js/profile.js')"></script>
-</body>
-
-</html>
+<script>
+    // Chama a função para exibir a dica assim que a página for carregada
+    window.onload = function() {
+        const tip = getRandomTip(); // Chama a função de dica aleatória
+        document.getElementById('tip').textContent = tip; // Exibe a dica no parágrafo
+    };
+</script>

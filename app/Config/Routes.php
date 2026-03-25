@@ -20,10 +20,14 @@ $routes -> group('dashboard', static function($routes){
     $routes->post('updateWater','Dashboard::updateWater');
     });
     
-    $routes -> group('receitas', static function($routes) {
+$routes -> group('receitas', static function($routes) {
         $routes->get('/', 'Receitas::index');
         $routes->get('filtrar','Receitas::filtrarReceitas');
         $routes->get('detalhes/(:num)','Receitas::detalhes/$1');
         $routes->post('adicionar','Receitas::adicionar');
         $routes->post('remover','Receitas::remover');
+    });
+
+$routes -> group('perfil', static function($routes) {
+    $routes->get('/', 'Profile::index');
 });

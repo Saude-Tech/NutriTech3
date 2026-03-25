@@ -534,7 +534,7 @@
     z-index: 40;
 }
 
-.bottom-nav .nav-item {
+.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -548,11 +548,11 @@
     cursor: pointer;
 }
 
-.bottom-nav .nav-item.active {
+.nav-item.active {
     color: #22c55e;
 }
 
-.bottom-nav .nav-item span {
+.nav-item span {
     margin-top: 0.25rem;
 }
 
