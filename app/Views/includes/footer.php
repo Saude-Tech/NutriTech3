@@ -1,7 +1,7 @@
 </body>
 
 </html>
-<script src="<?= base_url() ?>/assets/js/<?= $javascript ?>.js"></script>
+<script src="<?= base_url() ?>assets/js/<?= $javascript ?>.js"></script>
 <script src="<?= base_url('assets/js/main.js') ?>"></script>
 
 

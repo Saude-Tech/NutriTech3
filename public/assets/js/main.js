@@ -23,6 +23,51 @@ document.addEventListener('click', (e) => {
     if (userMenu && dropdown && !userMenu.contains(e.target)) {
         dropdown.classList.add('hidden');
     }
+    // Pega todos os formulários de adicionar alimento da lista
+const formsAlimentos = document.querySelectorAll('.form-adicionar-alimento');
+
+formsAlimentos.forEach(form => {
+    form.addEventListener('submit', async function(e) {
+        // 1. Evita que a página recarregue!
+        e.preventDefault();
+
+        // 2. Descobre qual refeição está ativa nos botões lá em cima
+        const activeMealBtn = document.querySelector('.meal-type-btn.active');
+        const mealType = activeMealBtn ? activeMealBtn.dataset.meal : '';
+
+        // 3. Coloca o valor da refeição no input oculto do formulário que foi clicado
+        this.querySelector('.input-refeicao').value = mealType;
+
+        // 4. Prepara os dados para envio
+        const formData = new FormData(this);
+        const url = this.getAttribute('action'); // Pega a URL do base_url() do PHP
+
+        try {
+            // 5. Envia para o CodeIgniter
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData // Envia como FormData, então no PHP você usará getPost()
+            });
+
+            const result = await response.json();
+
+            // 6. Trata a resposta do PHP
+            if (result.success) {
+                alert(result.message); // Ou use sua função showToast()
+                
+                // Atualiza o painel principal (se você tiver uma função para isso)
+                if (typeof renderDashboard === 'function') renderDashboard();
+                
+            } else {
+                alert('Erro: ' + result.error);
+            }
+
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            alert('Falha na conexão com o servidor.');
+        }
+    });
+});
 });
 
 
@@ -104,7 +149,6 @@ function openAddFoodModal() {
     if (modal) {
         modal.classList.remove('hidden');
         modal.classList.add('flex');
-        loadFoodList();
     }
 }
 
@@ -135,30 +179,6 @@ function closeQuickAddModal() {
         const form = document.getElementById('quick-add-form');
         if (form) form.reset();
     }
-}
-
-function loadFoodList(searchTerm = '') {
-    const foodList = document.getElementById('food-list');
-    if (!foodList) return;
-
-    let foods = AppState.foodDatabase;
-    if (searchTerm) foods = foods.filter(f => f.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    foodList.innerHTML = foods.length > 0 ? foods.map(food => `
-        <div class="food-card flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-2 cursor-pointer hover:bg-gray-100 transition-colors" onclick="addFoodToMeal(${food.id})">
-            <div class="flex items-center gap-3">
-                <span class="text-2xl">${food.emoji}</span>
-                <div>
-                    <p class="font-medium text-gray-800">${food.name}</p>
-                    <p class="text-xs text-gray-500">${food.portion}g • P: ${food.protein}g | C: ${food.carbs}g | G: ${food.fat}g</p>
-                </div>
-            </div>
-            <div class="text-right">
-                <p class="font-bold text-primary">${food.calories}</p>
-                <p class="text-xs text-gray-500">kcal</p>
-            </div>
-        </div>
-    `).join('') : '<div class="text-center py-8 text-gray-500"><p>Nenhum alimento encontrado</p></div>';
 }
 
 function handleFoodSearch(e) { loadFoodList(e.target.value); }
@@ -215,8 +235,6 @@ function handleQuickAdd(e) {
 function formatNumber(num) { return new Intl.NumberFormat('pt-BR').format(num); }
 function calculatePercentage(current, goal) { return Math.min(Math.round((current / goal) * 100), 100); }
 
-// ===== Exportações =====
-window.AppState = AppState;
 window.showToast = showToast;
 window.formatNumber = formatNumber;
 window.calculatePercentage = calculatePercentage;
@@ -224,4 +242,3 @@ window.toggleUserMenu = toggleUserMenu;
 window.addFoodToMeal = addFoodToMeal;
 window.openAddFoodModal = openAddFoodModal;
 window.closeAddFoodModal = closeAddFoodModal;
-window.loadFoodList = loadFoodList;

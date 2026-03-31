@@ -12,6 +12,7 @@ class RefeicoesUserModel extends Model
     protected $allowedFields = [
         'usuario_id',
         'receita_id',
+        'alimento_id',
         'tipo_refeicao',
         'data_refeicao'
     ];

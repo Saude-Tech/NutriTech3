@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\FoodModel;
 use App\Models\RecipeModel;
 use App\Models\UserModel;
 use App\Models\WaterModel;
@@ -16,6 +17,7 @@ class Dashboard extends BaseController
     protected $waterModel;
     protected $userId;
     protected $refeicoesUser;
+    protected $alimentosModel;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class Dashboard extends BaseController
         $this->userId = new UserModel();
         $this->waterModel = new WaterModel();
         $this->refeicoesUser = new RefeicoesUserModel();
+        $this->alimentosModel = new FoodModel();
 
         helper('auth'); // se você tiver helpers de autenticação
         helper('nutrition');
@@ -54,7 +57,8 @@ class Dashboard extends BaseController
             'title' => '',
             'style' => 'style',
             'style2' => 'dashboard',
-            'javascript' => 'dashboard'
+            'javascript' => 'dashboard',
+            'alimentos' => $this->alimentosModel->allFoods()
         ];
 
 
@@ -96,4 +100,53 @@ class Dashboard extends BaseController
         ]);
     }
 
+    public function adicionarAlimento()
+    {
+        $alimento_id = $this->request->getPost('alimento_id');
+        $tipo_refeicao = $this->request->getPost('tipo_refeicao');
+        $usuario_id = session('id');
+
+        // 2. Validação básica de segurança
+        if (empty($alimento_id) || empty($usuario_id)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'error'   => 'Dados incompletos ou usuário não logado.'
+            ]);
+        }
+
+        $alimento = $this->alimentosModel->where('id', $alimento_id)->first();
+
+        if (!$alimento) {
+            return $this->response->setJSON([
+                'success' => false,
+                'error'   => 'Alimento não encontrado.'
+            ]);
+        }
+
+        $dadosParaSalvar = [
+            'usuario_id'    => $usuario_id,
+            'receita_id'   => null,
+            'tipo_refeicao' => $tipo_refeicao,
+            'data_refeicao' => date('Y-m-d'), // Salva a data de hoje
+            'alimento_id'   => $alimento_id,
+        ];
+
+        try {
+            // 5. Faz o insert no banco de dados usando o seu Model de refeições/consumo
+            // Substitua 'refeicoesUser' pelo nome correto do Model que gerencia essa tabela
+            $this->refeicoesUser->insert($dadosParaSalvar);
+
+            // 6. Retorna sucesso para a tela
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => $alimento['nome'] . ' adicionado ao seu diário!'
+            ]);
+        } catch (\Exception $e) {
+            // Se o banco de dados falhar (ex: erro de conexão ou coluna faltando)
+            return $this->response->setJSON([
+                'success' => false,
+                'error'   => 'Erro ao salvar: ' . $e->getMessage()
+            ]);
+        }
+    }
 }

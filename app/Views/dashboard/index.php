@@ -50,7 +50,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                         <p class="text-sm text-gray-500 mb-4">
                             <?= $remaining > 0 ? 'Restam' : 'Excedeu' ?>
                             <span class="font-bold <?= $remaining > 0 ? 'text-primary' : 'text-red-500' ?>">
-                            <?= abs($remaining) ?> kcal
+                                <?= abs($remaining) ?> kcal
                             </span>
                         </p>
                         <div class="space-y-2">
@@ -59,7 +59,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                             </div>
                             <div class="flex items-center justify-between text-sm">
                                 <span class="text-gray-600">
-                                    Consumido 
+                                    Consumido
                                     <span class="font-medium text-primary">
                                         <?= formatar_numero($consumed) ?> kcal
                                     </span>
@@ -101,11 +101,11 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['proteinas'] ?>g meta</p>
 
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-                        
+
                         <div class="h-full bg-red-400 rounded-full macro-bar"
                             style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['proteinas'], $goals['proteinas']))))) ?>%">
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
@@ -117,11 +117,11 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['carboidratos'] ?>g meta</p>
 
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-                        
+
                         <div class="h-full bg-amber-400 rounded-full macro-bar"
                             style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%">
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -134,11 +134,11 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['gorduras'] ?>g meta</p>
 
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-                        
+
                         <div class="h-full bg-blue-400 rounded-full macro-bar"
                             style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%">
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -208,17 +208,40 @@ $offset = $circumference * (1 - ($percentage / 100));
                 </svg>
             </div>
 
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Refeição</label>
-                <div class="grid grid-cols-4 gap-2">
-                    <button class="meal-type-btn active py-2 px-3 rounded-lg text-xs font-medium transition-all" data-meal="breakfast">☀️ Café</button>
-                    <button class="meal-type-btn py-2 px-3 rounded-lg text-xs font-medium transition-all" data-meal="lunch">🍽️ Almoço</button>
-                    <button class="meal-type-btn py-2 px-3 rounded-lg text-xs font-medium transition-all" data-meal="dinner">🌙 Jantar</button>
-                    <button class="meal-type-btn py-2 px-3 rounded-lg text-xs font-medium transition-all" data-meal="snack">🍎 Lanche</button>
-                </div>
-            </div>
+            <div class="max-h-60 overflow-y-auto" id="food-list">
+                <?php if (!empty($alimentos)): ?>
+                    <?php foreach ($alimentos as $alimento): ?>
+                        <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="form-adicionar-alimento">
 
-            <div class="max-h-60 overflow-y-auto" id="food-list"></div>
+                            <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
+                            <input type="hidden" name="tipo_refeicao" class="input-refeicao" value="cafe">
+
+                            <div class="food-item flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl border-b border-gray-100 transition-colors">
+                                <div>
+                                    <h4 class="food-name text-sm font-semibold text-gray-800">
+                                        <?= htmlspecialchars($alimento['nome']) ?>
+                                    </h4>
+
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        <span class="font-medium text-gray-700"><?= $alimento['calorias'] ?> kcal</span> •
+                                        P: <?= $alimento['proteinas'] ?>g •
+                                        C: <?= $alimento['carboidratos'] ?>g •
+                                        G: <?= $alimento['gorduras'] ?>g
+                                    </p>
+                                </div>
+
+                                <button type="submit" class="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="text-center text-gray-500 py-4 text-sm">Nenhum alimento encontrado.</p>
+                <?php endif; ?>
+            </div>
 
             <div class="mt-4 pt-4 border-t border-gray-100">
                 <button id="quick-add-btn" class="w-full py-3 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-700 font-medium transition-colors flex items-center justify-center gap-2">
