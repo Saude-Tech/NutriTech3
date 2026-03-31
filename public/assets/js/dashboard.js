@@ -128,3 +128,60 @@ function getRandomTip() {
     // Retorna uma dica aleatória
     return tips[Math.floor(Math.random() * tips.length)];
 }
+
+function removerAlimento(id) {
+    let formData = new FormData();
+    formData.append('id', id);
+
+    fetch('/receitas/remover', { // Confirme se a URL está correta (refeicoes/remover ou receitas/remover)
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // A mágica acontece aqui: Recarrega a página atual!
+            window.location.reload(); 
+        } else {
+            alert('Erro: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Erro:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Pegamos os elementos pelo ID
+    const modal = document.getElementById('quick-add-modal');
+    const closeBtn = document.getElementById('close-quick-modal');
+
+    // 1. Função para ABRIR o modal
+    // Deixamos ela global (window) para você poder chamar no onclick de qualquer botão
+    window.openQuickAddModal = function() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex'); // O Tailwind precisa do flex para centralizar
+    };
+
+    // 2. Função para FECHAR o modal
+    window.closeQuickAddModal = function() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    };
+
+    // 3. Adiciona o evento de clique no botão "X"
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeQuickAddModal);
+    }
+
+    // 4. BÔNUS UX: Fechar o modal se o usuário clicar no fundo escuro (fora da caixinha branca)
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            // Se o elemento clicado for exatamente o fundo escuro (e não os filhos dele)
+            if (event.target === modal) {
+                closeQuickAddModal();
+            }
+        });
+    }
+});

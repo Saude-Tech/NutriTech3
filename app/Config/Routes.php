@@ -32,5 +32,6 @@ $routes -> group('perfil', static function($routes) {
     $routes->get('/', 'Profile::index');
     $routes->post('atualizar','Profile::atualizar');
     $routes->post('atualizarPerfil','Profile::atualizarPerfil');
+    $routes->post('atualizarCalorias','Profile::atualizarCalorias');
     $routes->post('criar','Profile::criar');
 });

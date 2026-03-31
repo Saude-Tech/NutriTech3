@@ -1,16 +1,3 @@
-const AppState = {
-    todayData: {
-        calories: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-        water: 0,
-        meals: { breakfast: [], lunch: [], dinner: [], snack: [] }
-    },
-    foodDatabase: [],
-    recipes: [],
-    history: []
-};
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();

@@ -148,6 +148,8 @@ class Profile extends BaseController
             // Se não tem, cria uma nova (mantendo a lógica do upsert)
             $this->metasModel->insert([
                 'usuario_id' => $uid,
+                'meta_calorias' => 2500,
+                'nivel_atividade' => 1,
                 'meta_peso'  => $metaPeso,
                 'ativo'      => true
             ]);
@@ -155,5 +157,46 @@ class Profile extends BaseController
 
         // 5. Redireciona de volta para a página de perfil com uma mensagem de sucesso
         return redirect()->to('/perfil');
+    }
+
+public function atualizarCalorias()
+    {
+        // Pega o valor enviado pelo formulário usando o "name" do input
+        $calorias = $this->request->getPost('calorias');
+        $userId = session('id');
+
+        if (!$userId) {
+            return redirect()->back()->with('error', 'Usuário não autenticado.');
+        }
+
+        $meta = $this->metasModel
+            ->where('usuario_id', $userId)
+            ->where('ativo', true)
+            ->first();
+
+        // Garante que o valor das calorias foi enviado e não está vazio
+        if (!empty($calorias)) {
+            if ($meta) {
+                // Se a meta já existe, apenas atualiza as calorias
+                $this->metasModel->update($meta['id'], [
+                    'meta_calorias' => $calorias
+                ]);
+            } else {
+                // Se o usuário não tinha meta, cria uma nova com valores padrão para o resto
+                $this->metasModel->insert([
+                    'usuario_id' => $userId,
+                    'meta_calorias' => $calorias,
+                    'nivel_atividade' => 1,
+                    'meta_peso' => 60,
+                    'ativo' => true
+                ]);
+            }
+            
+            // Redireciona de volta com mensagem de sucesso
+            return redirect()->back()->with('success', 'Meta de calorias atualizada com sucesso!');
+        }
+
+        // Se por acaso as calorias vierem vazias
+        return redirect()->back()->with('error', 'Por favor, insira um valor válido para as calorias.');
     }
 }

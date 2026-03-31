@@ -84,7 +84,10 @@ class Receitas extends BaseController
         $refeicoesModel = model(RefeicoesUserModel::class);
 
         if ($refeicoesModel->insert($data)) {
-            return $this->response->setJSON(['success' => true]);
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Receita adicionada com sucesso!'
+                ]);
         }
 
         return $this->response->setStatusCode(400)->setJSON(['success' => false]);
