@@ -18,6 +18,4 @@ gitGraph
     merge ntc-2
     checkout main
     merge ntc-1
-
-
 ```
