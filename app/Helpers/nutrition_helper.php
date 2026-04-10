@@ -5,6 +5,7 @@ use App\Models\UserModel;
 use Config\Database;
 
 if (!function_exists('meta_calorias_diaria')) {
+
     function meta_calorias_diaria($usuarioId)
     {
         $usuarioModel = new UserModel();
