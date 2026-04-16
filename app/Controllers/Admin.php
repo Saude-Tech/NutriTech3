@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\FoodModel;
+use App\Models\ReceitaIngredienteModel;
 use App\Models\RecipeModel;
+use App\Models\UnidadeModel;
 use App\Models\UserModel;
 
 class Admin extends BaseController
@@ -33,6 +35,22 @@ class Admin extends BaseController
         ];
 
         return view('admin/alimentos/receita/index', $data);
+    }
+
+    public function editarReceita($id)
+    {
+        $receitaModel = new RecipeModel();
+        $receitaIngredienteModel = new ReceitaIngredienteModel();
+        $alimentosModel = new FoodModel();
+        $unidadesModel = new UnidadeModel();
+        $data = [
+            'receita'=> $receitaModel->find($id),
+            'todos_alimentos' => $alimentosModel->allFoods(),
+            'ingredientes' => $receitaIngredienteModel->where('receita_id', $id)->findAll(),
+            'todas_unidades' => $unidadesModel->findAll(),
+        ];
+
+        return view('admin/alimentos/receita/edit', $data);
     }
 
     public function usuarios()
