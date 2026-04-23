@@ -189,63 +189,6 @@ $offset = $circumference * (1 - ($percentage / 100));
     </main>
 </div>
 
-<!-- Add Food Modal (usado pelos botões + nas refeições) -->
-<div id="add-food-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-hidden animate-slide-up">
-        <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 class="text-lg font-bold text-gray-800">Adicionar Alimento</h2>
-            <button id="close-modal" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <div class="p-4">
-            <div class="relative mb-4">
-                <input type="text" id="food-search" placeholder="Buscar alimento..." class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
-                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </div>
-
-            <div class="max-h-60 overflow-y-auto" id="food-list">
-                <?php if (!empty($alimentos)): ?>
-                    <?php foreach ($alimentos as $alimento): ?>
-                        <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="form-adicionar-alimento">
-
-                            <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
-                            <input type="hidden" name="tipo_refeicao" class="input-refeicao" value="">
-
-                            <div class="food-item flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl border-b border-gray-100 transition-colors">
-                                <div>
-                                    <h4 class="food-name text-sm font-semibold text-gray-800">
-                                        <?= htmlspecialchars($alimento['nome']) ?>
-                                    </h4>
-
-                                    <p class="text-xs text-gray-500 mt-1">
-                                        <span class="font-medium text-gray-700"><?= $alimento['calorias'] ?> kcal</span> •
-                                        P: <?= $alimento['proteinas'] ?>g •
-                                        C: <?= $alimento['carboidratos'] ?>g •
-                                        G: <?= $alimento['gorduras'] ?>g
-                                    </p>
-                                </div>
-
-                                <button type="submit" class="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="text-center text-gray-500 py-4 text-sm">Nenhum alimento encontrado.</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Toast -->
 <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300 transform -translate-y-2">
     <span id="toast-message"></span>
@@ -258,5 +201,11 @@ $offset = $circumference * (1 - ($percentage / 100));
     window.onload = function() {
         const tip = getRandomTip(); // Chama a função de dica aleatória
         document.getElementById('tip').textContent = tip; // Exibe a dica no parágrafo
+        <?php if (session()->getFlashdata('success')): ?>
+            showToast('<?= session()->getFlashdata('success') ?>', 'success');
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            showToast('<?= session()->getFlashdata('error') ?>', 'error');
+        <?php endif; ?>
     };
 </script>
