@@ -19,6 +19,7 @@ $routes->group('dashboard', ['filter' => 'auth'], static function ($routes) {
     $routes->get('/', 'Dashboard::index');
     $routes->post('updateWater', 'Dashboard::updateWater');
     $routes->post('adicionarAlimento', 'Dashboard::adicionarAlimento');
+    $routes->get('alimentos', 'Dashboard::alimentos');
 });
 
 $routes->group('receitas', ['filter' => 'auth'], static function ($routes) {
@@ -46,4 +47,5 @@ $routes->group('admin', static function ($routes) {
     $routes->get('receitas/editar/(:num)', 'Admin::editarReceita/$1');
     $routes->post('receitas/salvar/(:num)', 'Admin::salvarReceita/$1');
     $routes->get('receitas/criar', 'Admin::criarReceita');
+    $routes->get('alimentos', 'Admin::alimentos');
 });

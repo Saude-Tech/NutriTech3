@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use App\Models\WaterModel;
 use App\Models\ReceitaIngredienteModel;
 use App\Models\RefeicoesUserModel;
+use App\Models\UnidadeModel;
 
 class Dashboard extends BaseController
 {
@@ -18,6 +19,7 @@ class Dashboard extends BaseController
     protected $userId;
     protected $refeicoesUser;
     protected $alimentosModel;
+    protected $unidades;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class Dashboard extends BaseController
         $this->waterModel = new WaterModel();
         $this->refeicoesUser = new RefeicoesUserModel();
         $this->alimentosModel = new FoodModel();
+        $this->unidades = new UnidadeModel();
 
         helper('auth'); // se você tiver helpers de autenticação
         helper('nutrition');
@@ -104,6 +107,8 @@ class Dashboard extends BaseController
     {
         $alimento_id = $this->request->getPost('alimento_id');
         $tipo_refeicao = $this->request->getPost('tipo_refeicao');
+        $quantidade = $this->request->getPost('quantidade') ?? 0;
+        $unidade_id = $this->request->getPost('unidade_id') ?? 1; // default gramas
         $usuario_id = session('id');
 
         // 2. Validação básica de segurança
@@ -129,6 +134,8 @@ class Dashboard extends BaseController
             'tipo_refeicao' => $tipo_refeicao,
             'data_refeicao' => date('Y-m-d'), // Salva a data de hoje
             'alimento_id'   => $alimento_id,
+            'quantidade'    => $quantidade,
+            'unidade_id'    => $unidade_id,
         ];
 
         try {
@@ -137,16 +144,51 @@ class Dashboard extends BaseController
             $this->refeicoesUser->insert($dadosParaSalvar);
 
             // 6. Retorna sucesso para a tela
-            return $this->response->setJSON([
-                'success' => true,
-                'message' => $alimento['nome'] . ' adicionado ao seu diário!'
-            ]);
+            session()->setFlashdata('success', $alimento['nome'] . ' adicionado ao seu diário!');
+            return redirect()->to('dashboard/alimentos?tipo_refeicao=' . $tipo_refeicao);
         } catch (\Exception $e) {
             // Se o banco de dados falhar (ex: erro de conexão ou coluna faltando)
-            return $this->response->setJSON([
-                'success' => false,
-                'error'   => 'Erro ao salvar: ' . $e->getMessage()
-            ]);
+            session()->setFlashdata('error', 'Erro ao salvar: ' . $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function alimentos()
+    {
+        $tipo_refeicao = $this->request->getGet('tipo_refeicao');
+        $alimentos = $this->alimentosModel->allFoods();
+        $unidades = $this->unidades->findAll();
+
+        $data = [
+            'alimentos' => $alimentos,
+            'unidades' => $unidades,
+            'tipo_refeicao' => $tipo_refeicao,
+            'title' => 'Adicionar Alimento',
+            'style' => 'style',
+            'style2' => 'dashboard',
+            'javascript' => 'dashboard'
+        ];
+
+        echo view('includes/header', $data);
+        echo view('includes/navbar', $data);
+        echo view('dashboard/alimentos', $data);
+        echo view('includes/footer', $data);
+    }
+
+    public function removerAlimento()
+    {
+        $id = $this->request->getPost('id');
+        $usuario_id = session('id');
+
+        if (empty($id) || empty($usuario_id)) {
+            return $this->response->setJSON(['success' => false, 'error' => 'Dados inválidos']);
+        }
+
+        try {
+            $this->refeicoesUser->where('id', $id)->where('usuario_id', $usuario_id)->delete();
+            return $this->response->setJSON(['success' => true]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON(['success' => false, 'error' => $e->getMessage()]);
         }
     }
 }

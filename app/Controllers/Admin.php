@@ -199,4 +199,14 @@ class Admin extends BaseController
         return redirect()->to('/admin/usuarios')->with('success', 'Usuário atualizado com sucesso.');
     }
 
+    public function alimentos()
+    {
+        $alimento = new FoodModel();
+        $data = [
+            "alimentos" => $alimento->findAll(),
+        ];
+
+        return view('admin/alimentos/alimento/index', $data); 
+    }
+
 }
