@@ -21,7 +21,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('modal-sucesso');
             if (modal) {
                 setTimeout(() => {
@@ -342,6 +342,12 @@
                             </svg>
                             <span class="text-sm">Meu Perfil</span>
                         </a>
+                        <a href="<?= base_url('dashboard') ?>" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l-4-4m0 0l-4 4m4-4v4"></path>
+                            </svg>
+                            <span class="text-sm">Voltar</span>
+                        </a>
                         <hr class="my-2">
                         <a href="<?= base_url('auth/logout') ?>"
                             class="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 last:rounded-b-lg transition">
@@ -502,7 +508,7 @@
                 </svg>
             </div>
             <h2 class="text-2xl font-bold text-center text-gray-900 mb-4">Confirmar Exclusão</h2>
-            <p class="text-gray-600 text-center mb-8">Tem certeza que deseja deletar este alimento <strong
+            <p class="text-gray-600 text-center mb-8">Tem certeza que deseja deletar o alimento <strong
                     id="delete-alimentos-name"></strong>? Esta ação não pode ser desfeita.</p>
             <div class="flex justify-end gap-3">
                 <button onclick="closeDeleteModal()"

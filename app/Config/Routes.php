@@ -48,4 +48,7 @@ $routes->group('admin', static function ($routes) {
     $routes->post('receitas/salvar/(:num)', 'Admin::salvarReceita/$1');
     $routes->get('receitas/criar', 'Admin::criarReceita');
     $routes->get('alimentos', 'Admin::alimentos');
+    $routes->get('alimentos/editar/(:num)', 'Admin::editarAlimento/$1');
+    $routes->post('alimentos/salvar/(:num)', 'Admin::salvarAlimento/$1');
+    $routes->get('alimentos/criar', 'Admin::criarAlimento');
 });
