@@ -206,7 +206,44 @@ class Admin extends BaseController
             "alimentos" => $alimento->findAll(),
         ];
 
-        return view('admin/alimentos/alimento/index', $data); 
+        return view('admin/alimentos/alimento/index', $data);
+    }
+
+    public function editarAlimento($id)
+    {
+        $alimentoModel = new FoodModel();
+        $data = [
+            'alimento' => $alimentoModel->find($id),
+        ];
+
+        return view('admin/alimentos/alimento/edit', $data);
+    }
+
+    public function criarAlimento()
+    {
+        return view('admin/alimentos/alimento/add');
+    }
+
+    public function salvarAlimento($id = null)
+    {
+        $alimentoModel = new FoodModel();
+
+        $data = [
+            'nome' => $this->request->getPost('nome'),
+            'calorias' => $this->request->getPost('calorias'),
+            'carboidratos' => $this->request->getPost('carboidratos'),
+            'proteinas' => $this->request->getPost('proteinas'),
+            'gorduras' => $this->request->getPost('gorduras'),
+        ];
+
+        if ($id) {
+            $data['id'] = $id;
+            $alimentoModel->save($data);
+        } else {
+            $alimentoModel->insert($data);
+        }
+
+        return redirect()->to(base_url('admin/alimentos'))->with('success', 'Alimento salvo com sucesso!');
     }
 
 }

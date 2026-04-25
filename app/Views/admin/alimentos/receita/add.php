@@ -18,7 +18,7 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('modal-sucesso');
             if (modal) {
                 setTimeout(() => {
@@ -93,7 +93,9 @@
         function closeModal() {
             const modal = document.getElementById('errorModal');
             modal.classList.add('opacity-0');
-            setTimeout(() => { modal.remove(); }, 300);
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
         }
     </script>
     <style>
@@ -306,6 +308,12 @@
                             </svg>
                             <span class="text-sm">Meu Perfil</span>
                         </a>
+                        <a href="<?= base_url('dashboard') ?>" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l-4-4m0 0l-4 4m4-4v4"></path>
+                            </svg>
+                            <span class="text-sm">Voltar</span>
+                        </a>
                         <hr class="my-2">
                         <a href="<?= base_url('auth/logout') ?>"
                             class="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 last:rounded-b-lg transition">
@@ -517,7 +525,7 @@
                                 <?php
                                 $ingredientes_atuais = isset($ingredientes) && !empty($ingredientes) ? $ingredientes : [[]];
                                 foreach ($ingredientes_atuais as $index => $ingrediente):
-                                    ?>
+                                ?>
                                     <div
                                         class="ingrediente-row flex gap-4 items-start bg-gray-50 p-4 rounded-xl border border-gray-100">
                                         <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -627,8 +635,8 @@
         }
         // --- Lógica de Upload de Imagem --- //
 
-// --- Lógica de Upload e Remoção de Imagem --- //
-        
+        // --- Lógica de Upload e Remoção de Imagem --- //
+
         function previewImage(event) {
             const input = event.target;
             const previewImage = document.getElementById('image-preview');
@@ -639,23 +647,23 @@
             // Se o usuário selecionou uma nova foto no PC
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     previewImage.src = e.target.result; // Mostra a foto nova
                     removeFlag.value = '0'; // Avisa o PHP que NÃO é pra deletar
-                    
+
                     // Altera os botões dinamicamente
                     btnRemove.classList.remove('hidden'); // Mostra o botão de remover
                     btnTextUpdate.innerText = 'Atualizar Foto'; // Muda o texto
                 }
-                
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function removeImage(event) {
-            event.preventDefault(); 
-            event.stopPropagation(); 
+            event.preventDefault();
+            event.stopPropagation();
 
             const input = document.getElementById('imagem-input');
             const previewImage = document.getElementById('image-preview');
@@ -664,12 +672,12 @@
             const btnTextUpdate = document.getElementById('btn-text-update');
 
             // Limpa o input file e seta a flag para '1' (Avisa o PHP para deletar)
-            input.value = ''; 
-            removeFlag.value = '1'; 
-            
+            input.value = '';
+            removeFlag.value = '1';
+
             // Puxa a URL da imagem 'no_photo' que deixamos salva no data-attribute do HTML
             previewImage.src = previewImage.getAttribute('data-default-src');
-            
+
             // Altera os botões dinamicamente
             btnRemove.classList.add('hidden'); // Esconde o botão de remover
             btnTextUpdate.innerText = 'Adicionar Foto'; // Volta o texto para Adicionar

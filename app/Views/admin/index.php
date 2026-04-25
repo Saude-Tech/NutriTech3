@@ -34,22 +34,31 @@
 
     <style>
         @keyframes shrink-bar {
-            from { width: 100%; }
-            to { width: 0%; }
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
         }
+
         .animate-shrink-bar {
             animation: shrink-bar 4s linear forwards;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: scale(0.95) translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
         }
+
         .animate-fadeIn {
             animation: fadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -97,11 +106,13 @@
                 opacity: 0;
                 transform: translateY(-40px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         .animate-slideIn {
             animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -236,6 +247,7 @@
                 transform: translateX(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
@@ -247,6 +259,7 @@
                 transform: translateY(-100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -257,6 +270,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -336,6 +350,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                             <span class="text-sm">Meu Perfil</span>
+                        </a>
+                        <a href="<?= base_url('dashboard') ?>" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l-4-4m0 0l-4 4m4-4v4"></path>
+                            </svg>
+                            <span class="text-sm">Voltar</span>
                         </a>
                         <hr class="my-2">
                         <a href="<?= base_url('auth/logout') ?>" class="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 last:rounded-b-lg transition">
@@ -585,8 +605,7 @@
                 type: 'line',
                 data: {
                     labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Usuários',
                             data: [12, 19, 8, 15, 22, 28, 35],
                             borderColor: '#22c55e',
