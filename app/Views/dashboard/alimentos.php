@@ -1,44 +1,93 @@
-<div class="p-4 space-y-6">
+<div class="p-4 sm:p-6 bg-gray-50 min-h-screen">
+<div class="max-w-6xl mx-auto space-y-6">
+
     <div class="flex items-center justify-between">
         <div>
-            <h2 class="text-xl font-bold text-gray-800">Adicionar Alimento</h2>
+            <h2 class="text-2xl font-bold text-gray-900">Adicionar Alimento</h2>
             <p class="text-gray-500 text-sm">Selecione um alimento para adicionar à sua refeição</p>
         </div>
-        <a href="<?= base_url('dashboard') ?>" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+        <a href="<?= base_url('dashboard') ?>" 
+           class="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl shadow-sm hover:bg-gray-100 transition">
             Voltar
         </a>
     </div>
 
-    <div class="relative mb-4">
-        <input type="text" id="food-search" placeholder="Buscar alimento..." class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50">
-        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <div class="relative mb-6">
+        <input type="text" id="food-search"
+            placeholder="Buscar alimento..."
+            class="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400">
+        
+        <svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- GRID RESPONSIVO -->
+    <div class="grid gap-5 sm:gap-6 grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
         <?php foreach ($alimentos as $alimento): ?>
-            <div class="food-item bg-white rounded-xl p-4 shadow-sm border border-gray-100" data-name="<?= strtolower(htmlspecialchars($alimento['nome'])) ?>">
-                <h3 class="font-semibold text-gray-800 mb-2"><?= htmlspecialchars($alimento['nome']) ?></h3>
-                <p class="text-sm text-gray-600 mb-4">
-                    <span class="font-medium text-gray-700"><?= $alimento['calorias'] ?> kcal</span> •
-                    P: <?= $alimento['proteinas'] ?>g •
-                    C: <?= $alimento['carboidratos'] ?>g •
-                    G: <?= $alimento['gorduras'] ?>g
-                </p>
+            <div class="food-item bg-white rounded-2xl p-4 sm:p-5 shadow-md border border-gray-100 hover:shadow-lg transition flex flex-col justify-between h-full"
+                data-name="<?= strtolower(htmlspecialchars($alimento['nome'])) ?>">
 
-                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="space-y-3">
+                <h3 class="font-semibold text-lg sm:text-xl text-gray-900 mb-2">
+                    <?= htmlspecialchars($alimento['nome']) ?>
+                </h3>
+                
+                <div class="mb-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-500">Calorias</span>
+                        <span class="font-bold text-green-600 text-base sm:text-lg">
+                            <?= $alimento['calorias'] ?> kcal
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-blue-50 rounded-xl py-2">
+                            <p class="text-xs text-gray-500">Proteína</p>
+                            <p class="font-semibold text-blue-600">
+                                <?= $alimento['proteinas'] ?>g
+                            </p>
+                        </div>
+
+                        <div class="bg-yellow-50 rounded-xl py-2">
+                            <p class="text-xs text-gray-500">Carbo</p>
+                            <p class="font-semibold text-yellow-600">
+                                <?= $alimento['carboidratos'] ?>g
+                            </p>
+                        </div>
+
+                        <div class="bg-red-50 rounded-xl py-2">
+                            <p class="text-xs text-gray-500">Gordura</p>
+                            <p class="font-semibold text-red-500">
+                                <?= $alimento['gorduras'] ?>g
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Barra visual -->
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-3 overflow-hidden">
+                        <div class="h-full bg-green-500"
+                             style="width: <?= min(100, $alimento['calorias'] / 5) ?>%">
+                        </div>
+                    </div>
+                </div>
+
+                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="space-y-3 mt-auto">
+
                     <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
                     <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade</label>
-                        <input type="number" name="quantidade" value="0" step="0.01" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50" required>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Quantidade</label>
+                        <input type="number" name="quantidade" step="0.01" min="0"
+                            class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Unidade</label>
-                        <select name="unidade_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Unidade</label>
+                        <select name="unidade_id"
+                            class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400">
                             <?php foreach ($unidades as $unidade): ?>
                                 <option value="<?= $unidade['id'] ?>" <?= $unidade['id'] == 1 ? 'selected' : '' ?>>
                                     <?= htmlspecialchars($unidade['nome']) ?>
@@ -47,17 +96,21 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors">
+                    <button type="submit"
+                        class="w-full bg-green-500 text-white py-2.5 rounded-xl font-medium hover:bg-green-600 active:scale-[0.98] transition">
                         Adicionar
                     </button>
                 </form>
             </div>
         <?php endforeach; ?>
     </div>
+
+</div>
 </div>
 
 <!-- Toast -->
-<div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300 transform -translate-y-2">
+<div id="toast"
+    class="fixed top-20 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-2xl shadow-xl z-50 opacity-0 pointer-events-none transition-all duration-300 transform -translate-y-4">
     <span id="toast-message"></span>
 </div>
 

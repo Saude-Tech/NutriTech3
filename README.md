@@ -1,3 +1,5 @@
+# php spark serve -> Iniciar o projeto
+# CTRL + C para fechar o projeto
 # 🌱 NutriTech
 
 > Tecnologia a favor da sua alimentação saudável
