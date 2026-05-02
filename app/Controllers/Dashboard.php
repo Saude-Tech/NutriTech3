@@ -74,7 +74,7 @@ class Dashboard extends BaseController
     public function updateWater()
     {
         $userId = session('id');
-        $glasses = (int) $this->request->getPost('glasses');
+        $waterMl = (int) $this->request->getJSON('water_ml') ?? $this->request->getPost('water_ml');
 
         $today = date('Y-m-d');
 
@@ -84,22 +84,20 @@ class Dashboard extends BaseController
             ->first();
 
         if ($exists) {
-
             $this->waterModel->update($exists['id'], [
-                'quantidade_ml' => $glasses
+                'quantidade_ml' => $waterMl
             ]);
         } else {
-
             $this->waterModel->insert([
                 'usuario_id' => $userId,
-                'quantidade_ml' => $glasses,
+                'quantidade_ml' => $waterMl,
                 'data_registro' => $today
             ]);
         }
 
         return $this->response->setJSON([
             'success' => true,
-            'glasses' => $glasses
+            'water_ml' => $waterMl
         ]);
     }
 

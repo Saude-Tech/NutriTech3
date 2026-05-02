@@ -35,18 +35,15 @@ $offset = $circumference * (1 - ($percentage / 100));
     <!-- Main Content -->
     <main id="main-content" class="pb-20">
         <div class="p-4 space-y-6 animate-fade-in">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">Olá, <?= esc(user()['name']) ?>👋</h2>
-                    <p class="text-gray-500 text-sm">Acompanhe seu progresso de hoje</p>
-                </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Olá, <?= esc(user()['name']) ?>👋</h2>
+                <p class="text-gray-500 text-sm">Acompanhe seu progresso de hoje</p>
             </div>
 
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div class="flex-1">
                         <h3 class="text-lg font-semibold text-gray-800 mb-1">Calorias de Hoje</h3>
-
                         <p class="text-sm text-gray-500 mb-4">
                             <?= $remaining > 0 ? 'Restam' : 'Excedeu' ?>
                             <span class="font-bold <?= $remaining > 0 ? 'text-primary' : 'text-red-500' ?>">
@@ -60,9 +57,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                             <div class="flex items-center justify-between text-sm">
                                 <span class="text-gray-600">
                                     Consumido
-                                    <span class="font-medium text-primary">
-                                        <?= formatar_numero($consumed) ?> kcal
-                                    </span>
+                                    <span class="font-medium text-primary"><?= formatar_numero($consumed) ?> kcal</span>
                                 </span>
                             </div>
                         </div>
@@ -70,10 +65,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <div class="relative w-32 h-32">
                         <svg class="w-full h-full progress-ring" viewBox="0 0 120 120">
                             <circle cx="60" cy="60" r="52" fill="none" stroke="#e5e7eb" stroke-width="12" />
-                            <circle cx="60" cy="60" r="52" fill="none" stroke="url(#gradient)" stroke-width="12"
-                                stroke-dasharray="<?= $circumference ?>"
-                                stroke-dashoffset="<?= $offset ?>"
-                                stroke-linecap="round" class="progress-ring__circle" />
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="url(#gradient)" stroke-width="12" stroke-dasharray="<?= $circumference ?>" stroke-dashoffset="<?= $offset ?>" stroke-linecap="round" class="progress-ring__circle" />
                             <defs>
                                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" stop-color="#22c55e" />
@@ -82,9 +74,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                             </defs>
                         </svg>
                         <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span class="text-2xl font-bold text-gray-800">
-                                <?= $percentage ?>%
-                            </span>
+                            <span class="text-2xl font-bold text-gray-800"><?= $percentage ?>%</span>
                             <span class="text-xs text-gray-500">completo</span>
                         </div>
                     </div>
@@ -99,13 +89,8 @@ $offset = $circumference * (1 - ($percentage / 100));
                     </div>
                     <p class="text-xl font-bold text-gray-800"><?= $macros['proteinas'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['proteinas'] ?>g meta</p>
-
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-
-                        <div class="h-full bg-red-400 rounded-full macro-bar"
-                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['proteinas'], $goals['proteinas']))))) ?>%">
-                        </div>
-
+                        <div class="h-full bg-red-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['proteinas'], $goals['proteinas']))))) ?>%"></div>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
@@ -115,15 +100,9 @@ $offset = $circumference * (1 - ($percentage / 100));
                     </div>
                     <p class="text-xl font-bold text-gray-800"><?= $macros['carboidratos'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['carboidratos'] ?>g meta</p>
-
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-
-                        <div class="h-full bg-amber-400 rounded-full macro-bar"
-                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%">
-                        </div>
-
+                        <div class="h-full bg-amber-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%"></div>
                     </div>
-
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
@@ -132,39 +111,84 @@ $offset = $circumference * (1 - ($percentage / 100));
                     </div>
                     <p class="text-xl font-bold text-gray-800"><?= $macros['gorduras'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['gorduras'] ?>g meta</p>
-
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-
-                        <div class="h-full bg-blue-400 rounded-full macro-bar"
-                            style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%">
-                        </div>
-
+                        <div class="h-full bg-blue-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%"></div>
                     </div>
-
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl p-4 shadow-sm">
-
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-semibold text-gray-800">Água 💧</h3>
-                    <span class="text-sm text-gray-500">
-                        <span id="water-count"><?= $water ?></span>/8 copos
-                    </span>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="font-semibold text-gray-800">Água 💧</h3>
+                        <p class="text-xs text-gray-500 mt-1">Meta diária: 2 litros</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-lg font-bold text-blue-600">
+                            <span id="water-consumed"><?= $water ?></span>/<span id="water-goal">2000</span>
+                        </span>
+                        <span class="block text-xs text-gray-500">ml</span>
+                    </div>
                 </div>
-
-                <div class="flex items-center justify-between gap-2" id="water-tracker">
-
-                    <?php for ($i = 1; $i <= 8; $i++): ?>
-                        <button
-                            class="water-drop text-3xl transition-all <?= $i <= $water ? 'filled' : '' ?>"
-                            onclick="updateWater(<?= $i ?>)">
-                            💧
+                
+                <!-- Barra de água com animação -->
+                <div class="mb-4">
+                    <div class="w-full bg-gray-200 rounded-full h-5 overflow-hidden shadow-inner">
+                        <div id="water-bar" class="h-full bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-full transition-all duration-500" style="width: <?= min(100, ($water / 2000) * 100) ?>%"></div>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <p class="text-center text-xs text-gray-500 flex-1">
+                            <span id="water-percentage"><?= round(($water / 2000) * 100) ?></span>% 
+                            <span id="water-status">
+                                <?php 
+                                    $percentage = round(($water / 2000) * 100);
+                                    if ($percentage < 25) echo 'Beba mais!';
+                                    elseif ($percentage < 50) echo 'Continua!';
+                                    elseif ($percentage < 100) echo 'Quase lá!';
+                                    else echo '✅ Meta atingida!';
+                                ?>
+                            </span>
+                        </p>
+                        <span class="text-xs font-medium text-gray-600">
+                            Faltam <span id="water-remaining"><?= max(0, 2000 - $water) ?></span>ml
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Controle de água -->
+                <div class="space-y-3">
+                    <!-- Input customizável -->
+                    <div class="flex gap-2">
+                        <input type="number" id="water-input" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" placeholder="ml de água" value="250" min="50" max="500" onkeypress="if(event.key==='Enter') addWater()">
+                        <button onclick="addWater()" class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 active:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
+                            ➕ Adicionar
                         </button>
-                    <?php endfor; ?>
+                    </div>
+                    
+                    <!-- Botões rápidos -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="addWaterQuick(250)" class="px-3 py-2.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 active:bg-blue-200 transition-colors border border-blue-200">
+                            💧 250ml
+                        </button>
+                        <button onclick="addWaterQuick(500)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
+                            💧💧 500ml
+                        </button>
+                        <button onclick="addWaterQuick(750)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
+                            💧💧💧 750ml
+                        </button>
+                       <button onclick="addWaterQuick(1000)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
+                            💧💧💧 1000ml
+                        </button>
+                        <button onclick="resetWater()" class="col-span-2 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 active:bg-red-200 transition-colors border border-red-200">
+                            🗑️ Limpar tudo
+                        </button>
+                    </div>
 
+                    <!-- Info dica -->
+                    <div class="bg-blue-50 rounded-lg p-3 text-xs text-blue-800 border border-blue-200">
+                        <span class="font-medium">💡 Dica:</span> Beba água regularmente ao longo do dia. Não espere ficar com sede!
+                    </div>
                 </div>
-
             </div>
 
             <div class="space-y-3">
@@ -176,7 +200,7 @@ $offset = $circumference * (1 - ($percentage / 100));
 
             </div>
 
-            <div class="bg-gradient-to-br from            <div class=" bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-4">
+            <div class="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-4">
                 <div class="flex items-start gap-3">
                     <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-xl">💡</div>
                     <div>

@@ -151,3 +151,119 @@ function removerAlimento(id) {
     })
     .catch(error => console.error('Erro:', error));
 }
+// ===== CONFIG =====
+const WATER_GOAL = 2000;
+
+// ===== ELEMENTOS =====
+const el = {
+    input: document.getElementById('water-input'),
+    consumed: document.getElementById('water-consumed'),
+    bar: document.getElementById('water-bar'),
+    percentage: document.getElementById('water-percentage'),
+    status: document.getElementById('water-status'),
+    remaining: document.getElementById('water-remaining')
+};
+
+// ===== ESTADO =====
+let currentMl = Number(localStorage.getItem('water_ml')) || 0;
+
+// ===== HELPERS =====
+function getStatus(p) {
+    if (p >= 100) return '✅ Meta atingida!';
+    if (p >= 75) return '🔥 Quase lá!';
+    if (p >= 50) return 'Continua!';
+    if (p >= 25) return 'Bom progresso!';
+    return 'Beba mais!';
+}
+
+// ===== RENDER =====
+function render() {
+    const percentage = Math.min(100, (currentMl / WATER_GOAL) * 100);
+
+    el.consumed.textContent = currentMl;
+    el.percentage.textContent = Math.round(percentage);
+    el.status.textContent = getStatus(percentage);
+    el.remaining.textContent = Math.max(0, WATER_GOAL - currentMl);
+
+    el.bar.style.width = percentage + '%';
+
+    localStorage.setItem('water_ml', currentMl);
+}
+
+// ===== UPDATE =====
+function updateWater(ml) {
+    const prev = currentMl;
+    currentMl += ml;
+
+    if (currentMl > WATER_GOAL) {
+        const allowed = WATER_GOAL - prev;
+
+        if (allowed <= 0) {
+            showToast('✅ Meta já atingida!');
+            return;
+        }
+
+        currentMl = WATER_GOAL;
+        showToast(`⚠️ Só mais ${allowed}ml permitido`);
+    }
+
+    render();
+
+    // efeito meta
+    if (prev < WATER_GOAL && currentMl >= WATER_GOAL) {
+        el.bar.classList.add('animate-pulse');
+        showToast('🎉 Meta atingida!');
+        triggerConfetti();
+
+        setTimeout(() => {
+            el.bar.classList.remove('animate-pulse');
+        }, 2000);
+    }
+
+    // sync
+    fetch('/dashboard/updateWater', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ water_ml: currentMl })
+    }).catch(() => showToast('❌ Erro ao salvar'));
+}
+
+// ===== AÇÕES =====
+function addWater() {
+    const ml = Number(el.input.value);
+
+    if (isNaN(ml) || ml <= 0) {
+        showToast('❌ Valor inválido');
+        return;
+    }
+
+    updateWater(ml);
+    el.input.value = '';
+}
+
+function addWaterQuick(ml) {
+    updateWater(ml);
+}
+
+function resetWater() {
+    if (!confirm('Resetar água?')) return;
+
+    currentMl = 0;
+    render();
+    showToast('🗑️ Resetado');
+
+    fetch('/dashboard/updateWater', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ water_ml: 0 })
+    });
+}
+
+// ===== INIT =====
+render();
+
+// ===== EFEITO =====
+function triggerConfetti() {
+    el.bar.style.boxShadow = '0 0 25px rgba(34,197,94,0.9)';
+    setTimeout(() => el.bar.style.boxShadow = 'none', 2000);
+}
