@@ -107,7 +107,7 @@ class Dashboard extends BaseController
     {
         $alimento_id = $this->request->getPost('alimento_id');
         $tipo_refeicao = $this->request->getPost('tipo_refeicao');
-        $quantidade = $this->request->getPost('quantidade') ?? 0;
+        $quantidade = (float) ($this->request->getPost('quantidade') ?: 0);
         $unidade_id = $this->request->getPost('unidade_id') ?? 1; // default gramas
         $usuario_id = session('id');
 
@@ -115,7 +115,7 @@ class Dashboard extends BaseController
         if (empty($alimento_id) || empty($usuario_id)) {
             return $this->response->setJSON([
                 'success' => false,
-                'error'   => 'Dados incompletos ou usuário não logado.'
+                'error' => 'Dados incompletos ou usuário não logado.'
             ]);
         }
 
@@ -124,18 +124,18 @@ class Dashboard extends BaseController
         if (!$alimento) {
             return $this->response->setJSON([
                 'success' => false,
-                'error'   => 'Alimento não encontrado.'
+                'error' => 'Alimento não encontrado.'
             ]);
         }
 
         $dadosParaSalvar = [
-            'usuario_id'    => $usuario_id,
-            'receita_id'   => null,
+            'usuario_id' => $usuario_id,
+            'receita_id' => null,
             'tipo_refeicao' => $tipo_refeicao,
             'data_refeicao' => date('Y-m-d'), // Salva a data de hoje
-            'alimento_id'   => $alimento_id,
-            'quantidade'    => $quantidade,
-            'unidade_id'    => $unidade_id,
+            'alimento_id' => $alimento_id,
+            'quantidade' => $quantidade,
+            'unidade_id' => $unidade_id,
         ];
 
         try {

@@ -12,7 +12,8 @@ class FoodModel extends Model
         'calorias',
         'proteinas',
         'carboidratos',
-        'gorduras'
+        'gorduras',
+        'quantidade'
     ];
 
     public function allFoods()
