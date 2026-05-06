@@ -141,11 +141,48 @@ class Dashboard extends BaseController
             // Substitua 'refeicoesUser' pelo nome correto do Model que gerencia essa tabela
             $this->refeicoesUser->insert($dadosParaSalvar);
 
-            // 6. Retorna sucesso para a tela
+            // Verifica se é requisição AJAX
+            if ($this->request->isAJAX()) {
+                // Busca dados atualizados para retornar
+                $usuarioId = session('id');
+                $macrosAtualizados = macros_hoje($usuarioId);
+                $caloriasAtualizadas = calorias_hoje($usuarioId);
+                $goalsAtualizadas = metas_macros($usuarioId);
+                $goalCalorias = meta_calorias_diaria($usuarioId);
+                $percentualAtualizados = percentual_calorias($usuarioId);
+
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => $alimento['nome'] . ' adicionado ao seu diário!',
+                    'data' => [
+                        'alimento' => [
+                            'nome' => $alimento['nome'],
+                            'quantidade' => $quantidade,
+                            'calorias' => $alimento['calorias'],
+                            'tipo_refeicao' => $tipo_refeicao
+                        ],
+                        'stats' => [
+                            'calorias' => $caloriasAtualizadas,
+                            'goal' => $goalCalorias,
+                            'percentual' => $percentualAtualizados,
+                            'macros' => $macrosAtualizados,
+                            'goals' => $goalsAtualizadas
+                        ]
+                    ]
+                ]);
+            }
+
+            // 6. Retorna sucesso para a tela (redirect tradicional)
             session()->setFlashdata('success', $alimento['nome'] . ' adicionado ao seu diário!');
             return redirect()->to('dashboard/alimentos?tipo_refeicao=' . $tipo_refeicao);
         } catch (\Exception $e) {
             // Se o banco de dados falhar (ex: erro de conexão ou coluna faltando)
+            if ($this->request->isAJAX()) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'error'   => 'Erro ao salvar: ' . $e->getMessage()
+                ]);
+            }
             session()->setFlashdata('error', 'Erro ao salvar: ' . $e->getMessage());
             return redirect()->back();
         }

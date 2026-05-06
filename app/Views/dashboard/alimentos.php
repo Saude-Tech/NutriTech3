@@ -73,14 +73,14 @@
                     </div>
                 </div>
 
-                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="space-y-3 mt-auto">
+                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="space-y-3 mt-auto form-add-alimento">
 
                     <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
                     <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
 
                     <div>
                         <label class="block text-xs font-medium text-gray-500 mb-1">Quantidade</label>
-                        <input type="number" name="quantidade" step="0.01" min="0"
+                        <input type="number" name="quantidade" step="0.01" min="0" required
                             class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400">
                     </div>
 
@@ -141,6 +141,59 @@
         document.querySelectorAll('.food-item').forEach(item => {
             const name = item.dataset.name;
             item.style.display = name.includes(query) ? 'block' : 'none';
+        });
+    });
+
+    // AJAX para adicionar alimento
+    document.querySelectorAll('.form-add-alimento').forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            button.textContent = 'Adicionando...';
+            button.disabled = true;
+
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('✅ ' + data.message, 'success');
+                    // Atualiza o dashboard do window opener (se aberto em popup)
+                    setTimeout(() => {
+                        if (window.opener && !window.opener.closed) {
+                            // Recarrega apenas os dados do dashboard pai
+                            if (typeof window.opener.reloadDashboardData === 'function') {
+                                window.opener.reloadDashboardData();
+                            } else {
+                                window.opener.location.reload();
+                            }
+                            window.close();
+                        } else {
+                            // Se não for popup, recarrega ou navega
+                            const baseUrl = new URL(this.action).origin + '/';
+                            window.location.href = baseUrl + 'dashboard';
+                        }
+                    }, 1500);
+                } else {
+                    showToast('❌ ' + (data.error || 'Erro ao adicionar'), 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showToast('❌ Erro na requisição', 'error');
+            } finally {
+                button.textContent = originalText;
+                button.disabled = false;
+            }
         });
     });
 

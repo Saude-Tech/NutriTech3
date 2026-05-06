@@ -165,15 +165,15 @@ const el = {
 };
 
 // ===== ESTADO =====
-let currentMl = Number(localStorage.getItem('water_ml')) || 0;
+let currentMl = (typeof waterInitial !== 'undefined' ? waterInitial : 0) || Number(localStorage.getItem('water_ml')) || 0;
 
 // ===== HELPERS =====
 function getStatus(p) {
-    if (p >= 100) return '✅ Meta atingida!';
-    if (p >= 75) return '🔥 Quase lá!';
-    if (p >= 50) return 'Continua!';
-    if (p >= 25) return 'Bom progresso!';
-    return 'Beba mais!';
+    if (p >= 100) return '';
+    if (p >= 75) return '';
+    if (p >= 50) return '';
+    if (p >= 25) return '';
+    return '';
 }
 
 // ===== RENDER =====
@@ -267,3 +267,165 @@ function triggerConfetti() {
     el.bar.style.boxShadow = '0 0 25px rgba(34,197,94,0.9)';
     setTimeout(() => el.bar.style.boxShadow = 'none', 2000);
 }
+
+// ===== FUNÇÕES UTILITÁRIAS =====
+function showCustomWaterInput() {
+    const row = document.getElementById('custom-water-row');
+    if (row) row.classList.toggle('hidden');
+}
+
+// ===== ATUALIZAÇÃO EM TEMPO REAL =====
+function updateDashboardStats(stats) {
+    if (!stats) return;
+
+    // Atualizar calorias
+    const caloriasEl = document.getElementById('water-consumed');
+    if (caloriasEl) {
+        // Encontrar o elemento de calorias consumidas
+        const caloriesElements = document.querySelectorAll('[id="water-consumed"]');
+        // Procurar por elemento de calorias no HTML
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) {
+            const calorieValue = mainContent.querySelector('p[style*="color:#22c55e"]');
+            if (calorieValue && stats.calorias !== undefined) {
+                calorieValue.textContent = formatarNumero(stats.calorias) + ' kcal';
+            }
+        }
+    }
+
+    // Atualizar porcentagem e barra de progresso
+    if (stats.percentual !== undefined) {
+        const percentEl = document.querySelector('.progress-ring + div span:first-child');
+        if (percentEl) {
+            percentEl.textContent = Math.min(100, stats.percentual) + '%';
+        }
+
+        // Atualizar SVG do ring (stroke-dashoffset)
+        const circumference = 2 * Math.PI * 52;
+        const offset = circumference * (1 - (Math.min(100, stats.percentual) / 100));
+        const circle = document.querySelector('.progress-ring__circle');
+        if (circle) {
+            circle.style.strokeDashoffset = offset;
+        }
+    }
+
+    // Atualizar macros
+    if (stats.macros) {
+        updateMacroCard('protein', stats.macros.proteinas || 0, stats.goals?.proteinas || 150);
+        updateMacroCard('carbs', stats.macros.carboidratos || 0, stats.goals?.carboidratos || 150);
+        updateMacroCard('fat', stats.macros.gorduras || 0, stats.goals?.gorduras || 50);
+    }
+}
+
+function formatarNumero(num) {
+    if (typeof num !== 'number') num = parseFloat(num);
+    return num.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+function updateMacroCard(type, current, goal) {
+    // Encontrar o card do macro correspondente
+    const cards = document.querySelectorAll('.bg-white.rounded-xl.p-4.shadow-sm');
+    let targetCard = null;
+
+    if (type === 'protein') {
+        targetCard = Array.from(cards).find(c => c.textContent.includes('Proteína'));
+    } else if (type === 'carbs') {
+        targetCard = Array.from(cards).find(c => c.textContent.includes('Carbos'));
+    } else if (type === 'fat') {
+        targetCard = Array.from(cards).find(c => c.textContent.includes('Gordura'));
+    }
+
+    if (targetCard) {
+        const valueEl = targetCard.querySelector('p.text-xl.font-bold');
+        if (valueEl) {
+            valueEl.textContent = Math.round(current) + 'g';
+        }
+
+        const barEl = targetCard.querySelector('.macro-bar');
+        if (barEl) {
+            const percentage = Math.min(100, (current / goal) * 100);
+            barEl.style.width = percentage + '%';
+        }
+    }
+}
+
+// Função para recarregar o dashboard com dados atualizados
+function reloadDashboardData() {
+    fetch(BASE_URL + 'dashboard', {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+        .then(response => response.text())
+        .then(html => {
+            // Parse HTML e extrai conteúdo
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Recarregar apenas os elementos necessários
+            const mainContent = document.getElementById('main-content');
+            const newMainContent = doc.getElementById('main-content');
+            
+            if (mainContent && newMainContent) {
+                mainContent.innerHTML = newMainContent.innerHTML;
+                
+                // Reinicializar variáveis globais baseadas no DOM
+                if (document.getElementById('water-consumed')) {
+                    // Recalcular água (se houver)
+                    const waterText = document.getElementById('water-consumed').textContent;
+                    const waterValue = parseInt(waterText) || 0;
+                    currentMl = waterValue;
+                    render();
+                }
+                
+                // Reinicializar event listeners do forms de alimentos
+                initDashboardListeners();
+                
+                // Mostrar feedback visual
+                mainContent.style.opacity = '0.9';
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                }, 100);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao recarregar:', error);
+            showToast('❌ Erro ao recarregar dados', 'error');
+        });
+}
+
+function initDashboardListeners() {
+    // Reinicializar listeners de forms se necessário
+    document.querySelectorAll('form.inline').forEach(form => {
+        if (!form._listenerAdded) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            reloadDashboardData();
+                            showToast('✅ Alimento removido', 'success');
+                        } else {
+                            showToast('❌ ' + (data.message || 'Erro ao remover'), 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        showToast('❌ Erro na requisição', 'error');
+                    });
+            });
+            form._listenerAdded = true;
+        }
+    });
+}
+
+// Inicializar listeners quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', function() {
+    initDashboardListeners();
+});

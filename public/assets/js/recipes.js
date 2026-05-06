@@ -77,3 +77,9 @@ function mostrarModalSucesso(mensagem) {
         }, 300);
     }, 3000);
 }
+    function addToDaily() {
+    const quantity = document.getElementById('modal-quantity').value;
+    const unit = document.getElementById('modal-unit').value;
+
+    console.log(quantity, unit);
+}
