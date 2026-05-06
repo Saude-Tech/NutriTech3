@@ -167,26 +167,9 @@ $offset = $circumference * (1 - ($percentage / 100));
                     
                     <!-- Botões rápidos -->
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="addWaterQuick(250)" class="px-3 py-2.5 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 active:bg-blue-200 transition-colors border border-blue-200">
-                            💧 250ml
-                        </button>
-                        <button onclick="addWaterQuick(500)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
-                            💧💧 500ml
-                        </button>
-                        <button onclick="addWaterQuick(750)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
-                            💧💧💧 750ml
-                        </button>
-                       <button onclick="addWaterQuick(1000)" class="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 active:bg-blue-300 transition-colors border border-blue-300">
-                            💧💧💧 1000ml
-                        </button>
                         <button onclick="resetWater()" class="col-span-2 px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 active:bg-red-200 transition-colors border border-red-200">
                             🗑️ Limpar tudo
                         </button>
-                    </div>
-
-                    <!-- Info dica -->
-                    <div class="bg-blue-50 rounded-lg p-3 text-xs text-blue-800 border border-blue-200">
-                        <span class="font-medium">💡 Dica:</span> Beba água regularmente ao longo do dia. Não espere ficar com sede!
                     </div>
                 </div>
             </div>
