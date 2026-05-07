@@ -408,7 +408,7 @@
                 </div>
 
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 card-hover animate-fade-in">
-                    <form action="<?= base_url('admin/receitas/cadastrar/' . ($receita['id'] ?? '')) ?>" method="POST"
+                    <form action="<?= base_url('admin/receitas/salvar/' . ($receita['id'] ?? '')) ?>" method="POST"
                         enctype="multipart/form-data" class="space-y-8">
                         <?= csrf_field() ?>
 
@@ -429,8 +429,13 @@
 
                                 <div class="form-group">
                                     <label class="form-label">Categoria</label>
-                                    <input type="text" name="categoria" class="form-input"
-                                        value="<?= esc($receita['categoria'] ?? '') ?>" required>
+                                    <select name="categoria" class="form-input" required>
+                                        <option value="">Selecione uma categoria...</option>
+                                        <option value="cafe_da_manha" <?= ($receita['categoria'] ?? '') == 'cafe_da_manha' ? 'selected' : '' ?>>Café da Manhã</option>
+                                        <option value="almoco" <?= ($receita['categoria'] ?? '') == 'almoco' ? 'selected' : '' ?>>Almoço</option>
+                                        <option value="jantar" <?= ($receita['categoria'] ?? '') == 'jantar' ? 'selected' : '' ?>>Jantar</option>
+                                        <option value="lanche" <?= ($receita['categoria'] ?? '') == 'lanche' ? 'selected' : '' ?>>Lanche</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">

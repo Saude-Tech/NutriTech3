@@ -16,5 +16,6 @@ application/logs/*
 !application/logs/.htaccess
 /vendor/
 writable
+updates
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#CodeIgniter

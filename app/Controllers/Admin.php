@@ -153,6 +153,32 @@ class Admin extends BaseController
         return redirect()->to(base_url('admin/receitas'))->with('success', 'Receita salva com sucesso!');
     }
 
+    public function removerReceita($id)
+    {
+        $receitaModel = new RecipeModel();
+        $receita = $receitaModel->find($id);
+        $receitaIngredienteModel = new ReceitaIngredienteModel();
+
+        if (!$receita) {
+            return redirect()->to('/admin/receitas')->with('error', 'Receita não encontrada.');
+        }
+
+        // Deleta a imagem associada, se existir
+        if ($receita['imagem']) {
+            $caminhoFoto = FCPATH . 'assets/img/recipes/' . $receita['imagem'];
+            if (file_exists($caminhoFoto)) {
+                unlink($caminhoFoto);
+            }
+        }
+
+        // Deleta os ingredientes associados a essa receita para manter a integridade do banco
+        $receitaIngredienteModel->where('receita_id', $id)->delete();
+
+        // Deleta a receita do banco
+        $receitaModel->delete($id);
+        return redirect()->to('/admin/receitas')->with('success', 'Receita removida com sucesso.');
+    }
+
     // Rota usuarios
     public function usuarios()
     {
@@ -244,6 +270,19 @@ class Admin extends BaseController
         }
 
         return redirect()->to(base_url('admin/alimentos'))->with('success', 'Alimento salvo com sucesso!');
+    }
+
+    public function removerAlimento($id)
+    {
+        $alimentoModel = new FoodModel();
+        $alimento = $alimentoModel->find($id);
+
+        if (!$alimento) {
+            return redirect()->to('/admin/alimentos')->with('error', 'Alimento não encontrado.');
+        }
+
+        $alimentoModel->delete($id);
+        return redirect()->to('/admin/alimentos')->with('success', 'Alimento removido com sucesso.');
     }
 
 }
