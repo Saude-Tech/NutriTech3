@@ -68,27 +68,41 @@
             </button>
             <div class="modal-category-badge" id="modal-category"></div>
         </div>
+
         <div class="modal-body">
             <h2 id="modal-title" class="modal-title"></h2>
             <div class="modal-stats" id="modal-stats"></div>
             <div class="modal-macros" id="modal-macros"></div>
+
             <div class="modal-section">
                 <h3>🛒 Ingredientes</h3>
                 <ul id="modal-ingredients" class="ingredients-list"></ul>
             </div>
+
             <div class="modal-section">
                 <h3>👨‍🍳 Modo de Preparo</h3>
                 <p id="modal-instructions" class="instructions-text"></p>
             </div>
+            
+            <div class="modal-section">
+                <h3>📏 Quantidade de porções</h3>
+                <input 
+                    type="number" 
+                    id="modal-quantity" 
+                    class="input-field" 
+                    placeholder="Digite a quantidade"
+                    min="1"
+                >
+            </div>
             <input type="hidden" id="modal-recipe-id" value="">
             <input type="hidden" id="modal-recipe-category" value="">
+
             <button class="modal-add-btn" onclick="addToDaily()">
                 + Adicionar ao Diário
             </button>
         </div>
     </div>
 </div>
-
 <script src="recipes.js"></script>
 <script>
     let termoPesquisa = "";
