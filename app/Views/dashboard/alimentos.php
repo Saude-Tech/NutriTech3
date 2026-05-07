@@ -17,7 +17,11 @@
         --header-bg: #1a1a2e;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
     body {
         font-family: 'DM Sans', sans-serif;
@@ -39,11 +43,13 @@
         top: 0;
         z-index: 100;
     }
+
     .nt-logo {
         display: flex;
         align-items: center;
         gap: 10px;
     }
+
     .nt-logo-icon {
         width: 36px;
         height: 36px;
@@ -54,37 +60,51 @@
         justify-content: center;
         font-size: 18px;
     }
+
     .nt-logo-text h1 {
         color: #fff;
         font-size: 15px;
         font-weight: 700;
         line-height: 1.1;
     }
+
     .nt-logo-text p {
         color: #9ca3af;
         font-size: 11px;
         text-transform: capitalize;
     }
+
     .nt-header-right {
         display: flex;
         align-items: center;
         gap: 12px;
     }
+
     .nt-bell {
         position: relative;
         cursor: pointer;
     }
-    .nt-bell svg { color: #d1d5db; width: 22px; height: 22px; }
+
+    .nt-bell svg {
+        color: #d1d5db;
+        width: 22px;
+        height: 22px;
+    }
+
     .nt-bell-dot {
         position: absolute;
-        top: 0; right: 0;
-        width: 7px; height: 7px;
+        top: 0;
+        right: 0;
+        width: 7px;
+        height: 7px;
         background: #ef4444;
         border-radius: 50%;
         border: 2px solid var(--header-bg);
     }
+
     .nt-avatar {
-        width: 34px; height: 34px;
+        width: 34px;
+        height: 34px;
         background: var(--primary);
         border-radius: 50%;
         display: flex;
@@ -109,8 +129,15 @@
         gap: 24px;
         align-items: start;
     }
-    .nt-main { min-width: 0; }
-    .nt-sidebar { position: sticky; top: 80px; }
+
+    .nt-main {
+        min-width: 0;
+    }
+
+    .nt-sidebar {
+        position: sticky;
+        top: 25vh;
+    }
 
     /* ── Page Title ──────────────────────────── */
     .nt-page-title {
@@ -119,16 +146,19 @@
         justify-content: space-between;
         margin-bottom: 20px;
     }
+
     .nt-page-title h2 {
         font-size: 22px;
         font-weight: 700;
         color: var(--text-dark);
     }
+
     .nt-page-title p {
         font-size: 13px;
         color: var(--text-light);
         margin-top: 2px;
     }
+
     .nt-back-btn {
         display: flex;
         align-items: center;
@@ -144,13 +174,17 @@
         transition: background .2s;
         white-space: nowrap;
     }
-    .nt-back-btn:hover { background: #f0f0f0; }
+
+    .nt-back-btn:hover {
+        background: #f0f0f0;
+    }
 
     /* ── Search ──────────────────────────────── */
     .nt-search-wrap {
         position: relative;
         margin-bottom: 24px;
     }
+
     .nt-search-wrap input {
         width: 100%;
         padding: 13px 44px 13px 42px;
@@ -163,19 +197,26 @@
         transition: border-color .2s, box-shadow .2s;
         outline: none;
     }
-    .nt-search-wrap input::placeholder { color: var(--text-light); }
+
+    .nt-search-wrap input::placeholder {
+        color: var(--text-light);
+    }
+
     .nt-search-wrap input:focus {
         border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(45,155,78,.1);
+        box-shadow: 0 0 0 3px rgba(45, 155, 78, .1);
     }
+
     .nt-search-icon {
         position: absolute;
         left: 13px;
         top: 50%;
         transform: translateY(-50%);
-        width: 18px; height: 18px;
+        width: 18px;
+        height: 18px;
         color: var(--text-light);
     }
+
     .nt-search-clear {
         position: absolute;
         right: 13px;
@@ -188,7 +229,10 @@
         padding: 2px;
         display: none;
     }
-    .nt-search-clear:hover { color: var(--text-dark); }
+
+    .nt-search-clear:hover {
+        color: var(--text-dark);
+    }
 
     /* ── Section Header ──────────────────────── */
     .nt-section-title {
@@ -222,9 +266,10 @@
         transition: border-color .2s, box-shadow .2s, transform .15s;
         cursor: default;
     }
+
     .food-item:hover {
         border-color: var(--primary);
-        box-shadow: 0 4px 20px rgba(45,155,78,.12);
+        box-shadow: 0 4px 20px rgba(45, 155, 78, .12);
         transform: translateY(-2px);
     }
 
@@ -269,6 +314,7 @@
         cursor: pointer;
         transition: background .2s, color .2s;
     }
+
     .food-item .btn-selecionar:hover,
     .food-item .btn-selecionar.active {
         background: var(--primary);
@@ -284,7 +330,11 @@
         gap: 7px;
         text-align: left;
     }
-    .food-item-form.visible { display: flex; }
+
+    .food-item-form.visible {
+        display: flex;
+    }
+
     .food-item-form label {
         font-size: 11px;
         font-weight: 600;
@@ -292,6 +342,7 @@
         margin-bottom: 2px;
         display: block;
     }
+
     .food-item-form input,
     .food-item-form select {
         width: 100%;
@@ -305,10 +356,12 @@
         outline: none;
         transition: border-color .2s;
     }
+
     .food-item-form input:focus,
     .food-item-form select:focus {
         border-color: var(--primary);
     }
+
     .food-item-form .btn-add {
         width: 100%;
         padding: 8px;
@@ -323,13 +376,17 @@
         transition: background .2s;
         margin-top: 2px;
     }
-    .food-item-form .btn-add:hover { background: var(--primary-dark); }
+
+    .food-item-form .btn-add:hover {
+        background: var(--primary-dark);
+    }
 
     /* ── Ver todos ───────────────────────────── */
     .nt-ver-todos {
         text-align: center;
         margin-bottom: 20px;
     }
+
     .nt-ver-todos button {
         display: inline-flex;
         align-items: center;
@@ -345,16 +402,21 @@
         cursor: pointer;
         transition: border-color .2s, color .2s;
     }
+
     .nt-ver-todos button:hover {
         border-color: var(--primary);
         color: var(--primary);
     }
+
     .nt-ver-todos button svg {
         width: 15px;
         height: 15px;
         transition: transform .3s;
     }
-    .nt-ver-todos button.open svg { transform: rotate(180deg); }
+
+    .nt-ver-todos button.open svg {
+        transform: rotate(180deg);
+    }
 
     /* ── Tip bar ─────────────────────────────── */
     .nt-tip {
@@ -378,6 +440,7 @@
         padding: 18px;
         margin-bottom: 14px;
     }
+
     .nt-summary-card h3 {
         font-size: 14px;
         font-weight: 700;
@@ -387,7 +450,11 @@
         gap: 8px;
         margin-bottom: 16px;
     }
-    .nt-summary-card h3 svg { color: var(--primary); }
+
+    .nt-summary-card h3 svg {
+        color: var(--primary);
+    }
+
     .nt-empty-state {
         display: flex;
         flex-direction: column;
@@ -396,9 +463,24 @@
         padding: 12px 0 8px;
         gap: 8px;
     }
-    .nt-empty-state svg { color: #d1d5db; width: 40px; height: 40px; }
-    .nt-empty-state p { font-size: 13px; color: var(--text-mid); font-weight: 600; }
-    .nt-empty-state span { font-size: 12px; color: var(--text-light); line-height: 1.4; }
+
+    .nt-empty-state svg {
+        color: #d1d5db;
+        width: 40px;
+        height: 40px;
+    }
+
+    .nt-empty-state p {
+        font-size: 13px;
+        color: var(--text-mid);
+        font-weight: 600;
+    }
+
+    .nt-empty-state span {
+        font-size: 12px;
+        color: var(--text-light);
+        line-height: 1.4;
+    }
 
     .nt-info-card {
         background: var(--primary-light);
@@ -406,6 +488,7 @@
         border-radius: 12px;
         padding: 14px 16px;
     }
+
     .nt-info-card h4 {
         font-size: 13px;
         font-weight: 700;
@@ -415,6 +498,7 @@
         gap: 6px;
         margin-bottom: 6px;
     }
+
     .nt-info-card p {
         font-size: 12px;
         color: #2d6e43;
@@ -424,7 +508,9 @@
     /* ── Bottom Nav ──────────────────────────── */
     .nt-bottom-nav {
         position: fixed;
-        bottom: 0; left: 0; right: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         background: var(--card);
         border-top: 1.5px solid var(--border);
         display: flex;
@@ -432,6 +518,7 @@
         padding: 10px 0 14px;
         z-index: 100;
     }
+
     .nt-nav-item {
         display: flex;
         flex-direction: column;
@@ -444,8 +531,15 @@
         transition: color .2s;
         min-width: 64px;
     }
-    .nt-nav-item svg { width: 22px; height: 22px; }
-    .nt-nav-item.active { color: var(--primary); }
+
+    .nt-nav-item svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .nt-nav-item.active {
+        color: var(--primary);
+    }
 
     /* ── Toast ───────────────────────────────── */
     #toast {
@@ -457,7 +551,7 @@
         color: #fff;
         padding: 12px 22px;
         border-radius: 12px;
-        box-shadow: 0 8px 30px rgba(0,0,0,.2);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
         font-size: 13px;
         font-weight: 500;
         z-index: 200;
@@ -469,22 +563,186 @@
         align-items: center;
         gap: 8px;
     }
+
     #toast.show {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
         pointer-events: auto;
     }
-    #toast.error { background: #dc2626; }
+
+    #toast.error {
+        background: #dc2626;
+    }
+
+    /* ── Summary Modern ───────────────────────── */
+
+    .summary-top {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .summary-food {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .summary-emoji {
+        width: 70px;
+        height: 70px;
+        border-radius: 16px;
+        background: #f7f7f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+    }
+
+    .summary-food h4 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .summary-food span {
+        font-size: 13px;
+        color: var(--text-mid);
+    }
+
+    .summary-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: #eefbf2;
+        color: var(--primary-dark);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .summary-quantity {
+        margin-bottom: 18px;
+    }
+
+    .summary-quantity label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .summary-qty-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .qty-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border);
+        background: var(--card);
+        font-size: 20px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .qty-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    #summary-qty {
+        width: 60px;
+        height: 38px;
+        text-align: center;
+        border-radius: 10px;
+        border: 1.5px solid var(--border);
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    #summary-unit {
+        flex: 1;
+        height: 38px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border);
+        padding: 0 10px;
+        font-family: inherit;
+    }
+
+    .summary-macros {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .macro-box {
+        background: #f9fafb;
+        border: 1.5px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+    }
+
+    .macro-box span {
+        display: block;
+        font-size: 12px;
+        color: var(--text-light);
+        margin-bottom: 6px;
+    }
+
+    .macro-box strong {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .summary-submit {
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 12px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .summary-submit:hover {
+        background: var(--primary-dark);
+    }
 
     /* ── Responsive ──────────────────────────── */
     @media (max-width: 1024px) {
-        .nt-page { grid-template-columns: 1fr; }
-        .nt-sidebar { position: static; }
-        .nt-food-grid { grid-template-columns: repeat(3, 1fr); }
+        .nt-page {
+            grid-template-columns: 1fr;
+        }
+
+        .nt-sidebar {
+            position: static;
+        }
+
+        .nt-food-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
+
     @media (max-width: 700px) {
-        .nt-food-grid { grid-template-columns: repeat(2, 1fr); }
-        .nt-page { padding: 20px 16px 90px; }
+        .nt-food-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .nt-page {
+            padding: 20px 16px 90px;
+        }
     }
 </style>
 
@@ -527,42 +785,42 @@
 
         <div class="nt-food-grid" id="food-grid">
             <?php
-            $emojis = ['🥚','🍗','🍚','🌾','🫐','🍌','🍎','🥛','🥦','🥩','🐟','🧀','🥜','🫒','🍠','🫘'];
+            $emojis = ['🥚', '🍗', '🍚', '🌾', '🫐', '🍌', '🍎', '🥛', '🥦', '🥩', '🐟', '🧀', '🥜', '🫒', '🍠', '🫘'];
             $i = 0;
             foreach ($alimentos as $alimento):
                 $emoji = $emojis[$i % count($emojis)];
                 $i++;
             ?>
-            <div class="food-item" data-name="<?= strtolower(htmlspecialchars($alimento['nome'])) ?>">
+                <div class="food-item" data-name="<?= strtolower(htmlspecialchars($alimento['nome'])) ?>">
 
-                <span class="food-item-emoji"><?= $emoji ?></span>
-                <h3><?= htmlspecialchars($alimento['nome']) ?></h3>
-                <div class="food-item-kcal"><?= $alimento['calorias'] ?> kcal</div>
-                <div class="food-item-unit">P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g · G:<?= $alimento['gorduras'] ?>g</div>
+                    <span class="food-item-emoji"><?= $emoji ?></span>
+                    <h3><?= htmlspecialchars($alimento['nome']) ?></h3>
+                    <div class="food-item-kcal"><?= $alimento['calorias'] ?> kcal</div>
+                    <div class="food-item-unit">P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g · G:<?= $alimento['gorduras'] ?>g</div>
 
-                <button type="button" class="btn-selecionar" onclick="toggleForm(this)">Selecionar</button>
+                    <button type="button" class="btn-selecionar" onclick="toggleForm(this)">Selecionar</button>
 
-                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="food-item-form">
-                    <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
-                    <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
-                    <div>
-                        <label>Quantidade</label>
-                        <input type="number" name="quantidade" value="1" step="0.01" min="0" required>
-                    </div>
-                    <div>
-                        <label>Unidade</label>
-                        <select name="unidade_id">
-                            <?php foreach ($unidades as $unidade): ?>
-                                <option value="<?= $unidade['id'] ?>" <?= $unidade['id'] == 1 ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($unidade['nome']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-add">Adicionar ✓</button>
-                </form>
+                    <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="food-item-form">
+                        <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
+                        <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
+                        <div>
+                            <label>Quantidade</label>
+                            <input type="number" name="quantidade" value="1" step="0.01" min="0" required>
+                        </div>
+                        <div>
+                            <label>Unidade</label>
+                            <select name="unidade_id">
+                                <?php foreach ($unidades as $unidade): ?>
+                                    <option value="<?= $unidade['id'] ?>" <?= $unidade['id'] == 1 ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($unidade['nome']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-add">Adicionar ✓</button>
+                    </form>
 
-            </div>
+                </div>
             <?php endforeach; ?>
         </div>
 
@@ -586,32 +844,105 @@
     <!-- ── Sidebar ────────────────────────────── -->
     <aside class="nt-sidebar">
 
-        <div class="nt-summary-card">
-            <h3>
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13M10 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z" />
-                </svg>
-                Resumo da seleção
-            </h3>
-            <div class="nt-empty-state">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13M10 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z" />
-                </svg>
-                <p>Nenhum alimento selecionado</p>
-                <span>Escolha um alimento e defina a quantidade para ver o resumo aqui.</span>
-            </div>
-        </div>
+        <div class="nt-summary-card" id="summary-card">
 
-        <div class="nt-info-card">
-            <h4>
-                <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                </svg>
-                Informação importante
-            </h4>
-            <p>Os valores nutricionais podem variar de acordo com a marca e o modo de preparo.</p>
+            <!-- Estado vazio -->
+            <div id="summary-empty">
+                <h3>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13M10 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z" />
+                    </svg>
+                    Resumo da seleção
+                </h3>
+
+                <div class="nt-empty-state">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13M10 19a1 1 0 100 2 1 1 0 000-2zm7 0a1 1 0 100 2 1 1 0 000-2z" />
+                    </svg>
+                    <p>Nenhum alimento selecionado</p>
+                    <span>Escolha um alimento e defina a quantidade para ver o resumo aqui.</span>
+                </div>
+            </div>
+
+            <!-- Resumo -->
+            <div id="summary-content" style="display:none;">
+
+                <div class="summary-top">
+                    <div class="summary-food">
+                        <div class="summary-emoji" id="summary-emoji">🥚</div>
+
+                        <div>
+                            <h4 id="summary-name">Ovo</h4>
+                            <span id="summary-kcal-unit">155 kcal por unidade</span>
+                        </div>
+                    </div>
+
+                    <span class="summary-badge">✔ Fonte de proteína</span>
+                </div>
+
+                <div class="summary-quantity">
+
+                    <label>Quantidade</label>
+
+                    <div class="summary-qty-box">
+                        <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+
+                        <input type="number" id="summary-qty" value="1" min="1" step="1">
+
+                        <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+
+                        <select id="summary-unit">
+                            <?php foreach ($unidades as $unidade): ?>
+                                <option value="<?= $unidade['id'] ?>">
+                                    <?= htmlspecialchars($unidade['nome']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="summary-macros">
+
+                    <div class="macro-box">
+                        <span>Calorias</span>
+                        <strong id="macro-kcal">0 kcal</strong>
+                    </div>
+
+                    <div class="macro-box">
+                        <span>Proteína</span>
+                        <strong id="macro-protein">0 g</strong>
+                    </div>
+
+                    <div class="macro-box">
+                        <span>Carbo</span>
+                        <strong id="macro-carb">0 g</strong>
+                    </div>
+
+                    <div class="macro-box">
+                        <span>Gordura</span>
+                        <strong id="macro-fat">0 g</strong>
+                    </div>
+
+                </div>
+
+                <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" id="summary-form">
+
+                    <input type="hidden" name="alimento_id" id="summary-food-id">
+                    <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
+
+                    <input type="hidden" name="quantidade" id="summary-hidden-qty">
+                    <input type="hidden" name="unidade_id" id="summary-hidden-unit">
+
+                    <button type="submit" class="summary-submit">
+                        Adicionar à refeição
+                    </button>
+
+                </form>
+
+            </div>
         </div>
 
     </aside>
@@ -637,16 +968,16 @@
 
     /* ── Search ── */
     const searchInput = document.getElementById('food-search');
-    const clearBtn    = document.getElementById('search-clear');
+    const clearBtn = document.getElementById('search-clear');
 
-    searchInput.addEventListener('input', function () {
+    searchInput.addEventListener('input', function() {
         const q = this.value.toLowerCase().trim();
         clearBtn.style.display = q ? 'block' : 'none';
         document.querySelectorAll('.food-item').forEach(item => {
             item.style.display = item.dataset.name.includes(q) ? '' : 'none';
         });
     });
-    clearBtn.addEventListener('click', function () {
+    clearBtn.addEventListener('click', function() {
         searchInput.value = '';
         clearBtn.style.display = 'none';
         document.querySelectorAll('.food-item').forEach(i => i.style.display = '');
@@ -682,7 +1013,7 @@
     }
 
     /* ── Flash messages ── */
-    window.onload = function () {
+    window.onload = function() {
         <?php if (session()->getFlashdata('success')): ?>
             showToast('<?= session()->getFlashdata('success') ?>', 'success');
         <?php endif; ?>
@@ -690,4 +1021,96 @@
             showToast('<?= session()->getFlashdata('error') ?>', 'error');
         <?php endif; ?>
     };
+
+    let currentFood = null;
+
+    function toggleForm(btn) {
+
+        const card = btn.closest('.food-item');
+
+        const foodId = card.querySelector('input[name="alimento_id"]').value;
+        const foodName = card.querySelector('h3').textContent;
+        const foodEmoji = card.querySelector('.food-item-emoji').textContent;
+
+        const kcal = parseFloat(card.querySelector('.food-item-kcal').textContent);
+
+        const unitText = card.querySelector('.food-item-unit').textContent;
+
+        const proteins = parseFloat(unitText.match(/P:(.*?)g/)[1]);
+        const carbs = parseFloat(unitText.match(/C:(.*?)g/)[1]);
+        const fats = parseFloat(unitText.match(/G:(.*?)g/)[1]);
+
+        currentFood = {
+            id: foodId,
+            name: foodName,
+            emoji: foodEmoji,
+            kcal,
+            proteins,
+            carbs,
+            fats
+        };
+
+        document.getElementById('summary-empty').style.display = 'none';
+        document.getElementById('summary-content').style.display = 'block';
+
+        document.getElementById('summary-food-id').value = foodId;
+
+        document.getElementById('summary-name').textContent = foodName;
+        document.getElementById('summary-emoji').textContent = foodEmoji;
+        document.getElementById('summary-kcal-unit').textContent =
+            `${kcal} kcal por unidade`;
+
+        document.getElementById('summary-qty').value = 1;
+
+        updateSummaryMacros();
+    }
+
+    function updateSummaryMacros() {
+
+        if (!currentFood) return;
+
+        const qty = parseFloat(document.getElementById('summary-qty').value) || 1;
+
+        const kcal = currentFood.kcal * qty;
+        const protein = currentFood.proteins * qty;
+        const carb = currentFood.carbs * qty;
+        const fat = currentFood.fats * qty;
+
+        document.getElementById('macro-kcal').textContent =
+            kcal.toFixed(0) + ' kcal';
+
+        document.getElementById('macro-protein').textContent =
+            protein.toFixed(1) + ' g';
+
+        document.getElementById('macro-carb').textContent =
+            carb.toFixed(1) + ' g';
+
+        document.getElementById('macro-fat').textContent =
+            fat.toFixed(1) + ' g';
+
+        document.getElementById('summary-hidden-qty').value = qty;
+        document.getElementById('summary-hidden-unit').value =
+            document.getElementById('summary-unit').value;
+    }
+
+    function changeQty(amount) {
+
+        const input = document.getElementById('summary-qty');
+
+        let value = parseInt(input.value) || 1;
+
+        value += amount;
+
+        if (value < 1) value = 1;
+
+        input.value = value;
+
+        updateSummaryMacros();
+    }
+
+    document.getElementById('summary-qty')
+        .addEventListener('input', updateSummaryMacros);
+
+    document.getElementById('summary-unit')
+        .addEventListener('change', updateSummaryMacros);
 </script>
