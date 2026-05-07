@@ -575,3 +575,272 @@
     margin-top: -1.5rem;
     box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+    }
+
+    .modal-overlay.hidden {
+        display: none;
+    }
+
+    .modal-content {
+        position: relative;
+        background: #ffffff;
+        width: 100%;
+        max-width: 480px;
+        max-height: 92vh;
+        overflow-y: auto;
+        border-radius: 18px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+        animation: modalUp 0.25s ease;
+    }
+
+    @keyframes modalUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    .modal-image-container {
+        position: relative;
+        width: 100%;
+        height: 185px;
+        background: #f3f3f3;
+        overflow: hidden;
+        border-radius: 18px 18px 0 0;
+    }
+
+    .modal-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .modal-category-badge {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        background: #22C55E;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+
+    .modal-body {
+        padding: 16px 14px 20px;
+        color: #171717;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: #151515;
+        margin-bottom: 14px;
+    }
+
+    .recipe-info-box {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr;
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        padding: 12px 6px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .recipe-info-item {
+        text-align: center;
+        min-height: 55px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .recipe-info-item strong {
+        font-size: 11px;
+        font-weight: 800;
+        color: #171717;
+        margin-top: 4px;
+    }
+
+    .recipe-info-item p {
+        margin: 3px 0 0;
+        font-size: 13px;
+        color: #333333;
+    }
+
+    .recipe-info-divider {
+        width: 1px;
+        height: 48px;
+        background: #dddddd;
+    }
+
+    .recipe-icon {
+        color: #b21f35;
+        font-size: 19px;
+        line-height: 1;
+        font-weight: 700;
+    }
+
+    .difficulty-icon {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        height: 16px;
+    }
+
+    .difficulty-icon span {
+        display: block;
+        height: 5px;
+        border-radius: 999px;
+        background: #d7d7d7;
+    }
+
+    .difficulty-icon span:nth-child(1) {
+        width: 20px;
+        background: #22C55E;
+    }
+
+    .difficulty-icon span:nth-child(2) {
+        width: 20px;
+    }
+
+    .difficulty-icon span:nth-child(3) {
+        width: 20px;
+    }
+
+    .modal-macros {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .macro-badge {
+        background: #f4f4f4;
+        color: #333;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 7px 10px;
+        border-radius: 999px;
+    }
+
+    .modal-section {
+        margin-top: 20px;
+    }
+
+    .modal-section h3 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #151515;
+        margin-bottom: 14px;
+    }
+
+    .ingredients-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ingredients-list li {
+        font-size: 13px;
+        line-height: 1.5;
+        color: #222222;
+        margin-bottom: 18px;
+    }
+
+    .instructions-text {
+        font-size: 13px;
+        line-height: 1.35;
+        color: #222222;
+        white-space: pre-line;
+        margin: 0;
+    }
+
+    .quantity-section {
+        margin-top: 22px;
+    }
+
+    .input-field {
+        width: 100%;
+        border: 1px solid #dcdcdc;
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .input-field:focus {
+        border-color: #22C55E;
+        box-shadow: 0 0 0 3px rgba(183, 207, 50, 0.2);
+    }
+
+    .modal-add-btn {
+        width: 100%;
+        margin-top: 18px;
+        background: #22C55E;
+        color: #ffffff;
+        border: none;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .modal-add-btn:hover {
+        filter: brightness(0.95);
+    }
+
+    @media (max-width: 420px) {
+        .modal-content {
+            max-width: 100%;
+            border-radius: 16px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+        }
+
+        .modal-section h3 {
+            font-size: 23px;
+        }
+    }

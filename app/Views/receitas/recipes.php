@@ -30,26 +30,12 @@
             onclick="filterByCategory('lanche', this)">🍎 Lanches</button>
     </div>
 
-    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-secondary p-6 text-white">
-        <div class="relative z-10">
-            <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-medium">⭐ Receita do Dia</span>
-            <h3 class="text-xl font-bold mt-3">Bowl de Açaí Proteico</h3>
-            <p class="text-green-100 text-sm mt-1">Perfeito para começar o dia com energia!</p>
-            <div class="flex items-center gap-4 mt-3 text-sm">
-                <span>🔥 350 kcal</span>
-                <span>⏱️ 10 min</span>
-                <span>📊 Fácil</span>
-            </div>
-            <button class="mt-4 px-4 py-2 bg-white text-primary rounded-lg font-medium text-sm hover:bg-green-50 transition-colors"
-                onclick="openRecipeDetail(1)">Ver Receita</button>
-        </div>
-    </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="recipes-grid">
         <?= view('includes/card_receitas', ['recipes' => $recipes]) ?>
     </div>
 </div>
 
+<!-- Modal antigo mantido, caso alguma parte do projeto use ele -->
 <div id="recipe-detail-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
     <div class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-hidden animate-slide-up">
         <div id="recipe-detail-content"></div>
@@ -59,33 +45,66 @@
 <!-- Recipe Modal -->
 <div id="recipe-modal" class="modal-overlay hidden">
     <div class="modal-content">
+
+        <button onclick="closeRecipeModal()" class="modal-close">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
         <div class="modal-image-container">
             <img id="modal-image" src="" alt="" class="modal-image">
-            <button onclick="closeRecipeModal()" class="modal-close">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
             <div class="modal-category-badge" id="modal-category"></div>
         </div>
 
         <div class="modal-body">
+
             <h2 id="modal-title" class="modal-title"></h2>
-            <div class="modal-stats" id="modal-stats"></div>
-            <div class="modal-macros" id="modal-macros"></div>
+
+            <!-- Cards do topo igual a imagem -->
+            <div class="recipe-info-box">
+                <div class="recipe-info-item">
+                    <div class="difficulty-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <strong>DIFICULDADE</strong>
+                    <p id="modal-difficulty">Fácil</p>
+                </div>
+
+                <div class="recipe-info-divider"></div>
+
+                <div class="recipe-info-item">
+                    <div class="recipe-icon">♨</div>
+                    <strong>PORÇÕES</strong>
+                    <p id="modal-portions">0</p>
+                </div>
+
+                <div class="recipe-info-divider"></div>
+
+                <div class="recipe-info-item">
+                    <div class="recipe-icon">⏱</div>
+                    <strong>TOTAL</strong>
+                    <p id="modal-total-time">0 min</p>
+                </div>
+            </div>
+
+            <!-- Macros continuam existindo, mas com visual mais discreto -->
+            <div id="modal-macros" class="modal-macros"></div>
 
             <div class="modal-section">
-                <h3>🛒 Ingredientes</h3>
+                <h3>Ingredientes</h3>
                 <ul id="modal-ingredients" class="ingredients-list"></ul>
             </div>
 
             <div class="modal-section">
-                <h3>👨‍🍳 Modo de Preparo</h3>
+                <h3>Modo de Preparo</h3>
                 <p id="modal-instructions" class="instructions-text"></p>
             </div>
-            
-            <div class="modal-section">
-                <h3>📏 Quantidade de porções</h3>
+
+            <div class="modal-section quantity-section">
+                <h3>Quantidade de porções</h3>
                 <input 
                     type="number" 
                     id="modal-quantity" 
@@ -94,6 +113,7 @@
                     min="1"
                 >
             </div>
+
             <input type="hidden" id="modal-recipe-id" value="">
             <input type="hidden" id="modal-recipe-category" value="">
 
@@ -103,18 +123,17 @@
         </div>
     </div>
 </div>
+
 <script src="recipes.js"></script>
+
 <script>
     let termoPesquisa = "";
     let categoriaAtual = "all";
 
-    // Função para abrir o modal e carregar os dados
     async function abrirModalReceita(receitaId) {
         try {
-            // Mostra o modal (opcionalmente pode mostrar um "Carregando..." aqui)
             document.getElementById('recipe-modal').classList.remove('hidden');
 
-            // Faz a requisição para o controller do CodeIgniter
             const response = await fetch(`<?= base_url('receitas/detalhes/') ?>${receitaId}`);
             const data = await response.json();
 
@@ -123,41 +142,41 @@
                 return;
             }
 
-
-            // Preenche o Cabeçalho e Imagem
             document.getElementById('modal-title').innerText = data.nome;
             document.getElementById('modal-category').innerText = data.categoria;
-            document.getElementById('modal-image').src = `<?= base_url('assets/img/recipes/') ?>${data.imagem}`; // Ajuste o caminho da imagem conforme seu projeto
+            document.getElementById('modal-image').src = `<?= base_url('assets/img/recipes/') ?>${data.imagem}`;
             document.getElementById('modal-recipe-id').value = receitaId;
             document.getElementById('modal-recipe-category').value = data.categoria;
-            document.getElementById('modal-instructions').innerText = data.descricao;
 
-            // Preenche as Estatísticas (Tempo e Porções)
-            document.getElementById('modal-stats').innerHTML = `
-            <span>⏱️ ${data.tempo_preparo} min</span> | 
-            <span>🍽️ ${data.porcoes} porções</span>
-        `;
+            document.getElementById('modal-portions').innerText = data.porcoes ?? 0;
+            document.getElementById('modal-total-time').innerText = `${data.tempo_preparo ?? 0} min`;
+            document.getElementById('modal-difficulty').innerText = data.dificuldade ?? 'Fácil';
 
-            // Preenche os Macros (calculados no RecipeModel)
             document.getElementById('modal-macros').innerHTML = `
-            <span class="macro-badge">🔥 ${data.calorias} kcal</span>
-            <span class="macro-badge">🥩 ${data.proteinas}g Prot</span>
-            <span class="macro-badge">🍞 ${data.carboidratos}g Carb</span>
-            <span class="macro-badge">🥑 ${data.gordura}g Gord</span>
-        `;
+                <span class="macro-badge">🔥 ${data.calorias} kcal</span>
+                <span class="macro-badge">🥩 ${data.proteinas}g Prot</span>
+                <span class="macro-badge">🍞 ${data.carboidratos}g Carb</span>
+                <span class="macro-badge">🥑 ${data.gordura}g Gord</span>
+            `;
 
-            // Limpa e Preenche a Lista de Ingredientes
             const listaIngredientes = document.getElementById('modal-ingredients');
-            listaIngredientes.innerHTML = ''; // Limpa a lista antes de adicionar
+            listaIngredientes.innerHTML = '';
 
-            data.lista_ingredientes.forEach(ing => {
-                const li = document.createElement('li');
-                // Vai imprimir algo como: "200 g de Frango"
-                li.innerText = `${ing.quantidade} ${ing.unidade} de ${ing.alimento}`;
-                listaIngredientes.appendChild(li);
-            });
+            if (data.lista_ingredientes && data.lista_ingredientes.length > 0) {
+                data.lista_ingredientes.forEach(ing => {
+                    const li = document.createElement('li');
 
-            // Configura o botão de Adicionar ao Diário com o ID da receita atual
+                    const quantidade = ing.quantidade ?? '';
+                    const unidade = ing.unidade ?? '';
+                    const alimento = ing.alimento ?? '';
+
+                    li.innerText = `${quantidade} ${unidade} de ${alimento}`.trim();
+                    listaIngredientes.appendChild(li);
+                });
+            }
+
+            document.getElementById('modal-instructions').innerText = formatarModoPreparo(data.descricao);
+
             const addBtn = document.querySelector('.modal-add-btn');
             addBtn.setAttribute('onclick', `addToDaily(${data.id})`);
 
@@ -166,7 +185,18 @@
         }
     }
 
-    // Função que você já chamou no botão de fechar do seu HTML
+    function formatarModoPreparo(texto) {
+        if (!texto) return '';
+
+        let textoFormatado = texto.trim();
+
+        textoFormatado = textoFormatado
+            .replace(/(\d+\.)/g, '\n$1')
+            .replace(/^\n/, '');
+
+        return textoFormatado;
+    }
+
     function closeRecipeModal() {
         document.getElementById('recipe-modal').classList.add('hidden');
     }
@@ -179,17 +209,17 @@
     function filterByCategory(categoria, botaoClicado) {
         categoriaAtual = categoria;
 
-        categoriaAtual = categoria;
-
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.classList.remove('bg-primary', 'text-white');
             btn.classList.add('bg-gray-100', 'text-gray-600');
         });
+
         botaoClicado.classList.remove('bg-gray-100', 'text-gray-600');
         botaoClicado.classList.add('bg-primary', 'text-white');
 
         atualizarCards();
     }
+
     async function atualizarCards() {
         try {
             const url = `<?= base_url('receitas/filtrar') ?>?categoria=${categoriaAtual}&busca=${termoPesquisa}`;
