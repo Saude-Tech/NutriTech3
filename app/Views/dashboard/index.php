@@ -134,8 +134,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                     </div>
                     <div class="flex items-center justify-between mt-2">
                         <p class="text-center text-xs text-gray-500 flex-1">
-                            <span id="water-percentage"><?= round(($water / 2000) * 100) ?></span>% 
-                            <span id="water-status">cc
+                            <span id="water-status">
                                 <?php 
                                     $percentage = round(($water / 2000) * 100);
                                     if ($percentage < 25) echo '';
@@ -170,17 +169,19 @@ $offset = $circumference * (1 - ($percentage / 100));
                 <h3 class="font-semibold text-gray-800">Refeições de Hoje</h3>
                 <?php $temRefeicao = !empty($todayData['cafe']) || !empty($todayData['almoco']) || !empty($todayData['jantar']) || !empty($todayData['lanche']); ?>
                 <?php if (!$temRefeicao): ?>
-                <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
-                    <div class="text-5xl mb-3">🍽</div>
-                    <h4 class="font-semibold text-gray-800 mb-1">Nenhuma refeição registrada ainda</h4>
-                    <p class="text-sm text-gray-500 mb-4">Registre o que você comeu para acompanhar seus resultados.</p>
-                    <a href="<?= base_url('dashboard/alimentos') ?>" class="block w-full py-3 rounded-xl text-white font-medium" style="background:#22c55e">+ Adicionar refeição</a>
-                </div>
+                    <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
+
+                    <pre><?php var_dump($todayData); ?></pre>
+                        <div class="text-5xl mb-3">🍽</div>
+                        <h4 class="font-semibold text-gray-800 mb-1">Nenhuma refeição registrada ainda</h4>
+                        <p class="text-sm text-gray-500 mb-4">Registre o que você comeu para acompanhar seus resultados.</p>
+                        <a href="<?= base_url('dashboard/alimentos') ?>" class="block w-full py-3 rounded-xl text-white font-medium" style="background:#22c55e">+ Adicionar refeição</a>
+                    </div>
                 <?php else: ?>
-                <?= renderizar_secao_refeicao('cafe', '☀️ Café da Manhã', $todayData['cafe']) ?>
-                <?= renderizar_secao_refeicao('almoco', '🍽️ Almoço', $todayData['almoco']) ?>
-                <?= renderizar_secao_refeicao('jantar', '🌙 Jantar', $todayData['jantar']) ?>
-                <?= renderizar_secao_refeicao('lanche', '🍎 Lanches', $todayData['lanche']) ?>
+                    <?= renderizar_secao_refeicao('cafe', '☀️ Café da Manhã', $todayData['cafe']) ?>
+                    <?= renderizar_secao_refeicao('almoco', '🍽️ Almoço', $todayData['almoco']) ?>
+                    <?= renderizar_secao_refeicao('jantar', '🌙 Jantar', $todayData['jantar']) ?>
+                    <?= renderizar_secao_refeicao('lanche', '🍎 Lanches', $todayData['lanche']) ?>
                 <?php endif; ?>
             </div>
 

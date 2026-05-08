@@ -181,8 +181,6 @@ function render() {
     const percentage = Math.min(100, (currentMl / WATER_GOAL) * 100);
 
     el.consumed.textContent = currentMl;
-    el.percentage.textContent = Math.round(percentage);
-    el.status.textContent = getStatus(percentage);
     el.remaining.textContent = Math.max(0, WATER_GOAL - currentMl);
 
     el.bar.style.width = percentage + '%';

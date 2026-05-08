@@ -790,13 +790,14 @@
             foreach ($alimentos as $alimento):
                 $emoji = $emojis[$i % count($emojis)];
                 $i++;
-            ?>
+                ?>
                 <div class="food-item" data-name="<?= strtolower(htmlspecialchars($alimento['nome'])) ?>">
 
                     <span class="food-item-emoji"><?= $emoji ?></span>
                     <h3><?= htmlspecialchars($alimento['nome']) ?></h3>
                     <div class="food-item-kcal"><?= $alimento['calorias'] ?> kcal</div>
-                    <div class="food-item-unit">P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g · G:<?= $alimento['gorduras'] ?>g</div>
+                    <div class="food-item-unit">P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g ·
+                        G:<?= $alimento['gorduras'] ?>g</div>
 
                     <button type="button" class="btn-selecionar" onclick="toggleForm(this)">Selecionar</button>
 
@@ -900,8 +901,13 @@
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                        <select id="summary-unit">
+                            <option value="cafe">Café da manhã</option>
+                            <option value="almoco">Almoço</option>
+                            <option value="jantar">Jantar</option>
+                            <option value="lanche">Lanche</option>
+                        </select>
                     </div>
-
                 </div>
 
                 <div class="summary-macros">
@@ -951,7 +957,9 @@
 <!-- ── Toast ──────────────────────────────────── -->
 <div id="toast">
     <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" id="toast-icon">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        <path fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" />
     </svg>
     <span id="toast-message"></span>
 </div>
@@ -970,14 +978,14 @@
     const searchInput = document.getElementById('food-search');
     const clearBtn = document.getElementById('search-clear');
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
         const q = this.value.toLowerCase().trim();
         clearBtn.style.display = q ? 'block' : 'none';
         document.querySelectorAll('.food-item').forEach(item => {
             item.style.display = item.dataset.name.includes(q) ? '' : 'none';
         });
     });
-    clearBtn.addEventListener('click', function() {
+    clearBtn.addEventListener('click', function () {
         searchInput.value = '';
         clearBtn.style.display = 'none';
         document.querySelectorAll('.food-item').forEach(i => i.style.display = '');
@@ -1013,7 +1021,7 @@
     }
 
     /* ── Flash messages ── */
-    window.onload = function() {
+    window.onload = function () {
         <?php if (session()->getFlashdata('success')): ?>
             showToast('<?= session()->getFlashdata('success') ?>', 'success');
         <?php endif; ?>

@@ -431,7 +431,7 @@
                                     <label class="form-label">Categoria</label>
                                     <select name="categoria" class="form-input" required>
                                         <option value="">Selecione...</option>
-                                        <option value="cafe_da_manha" <?= ($receita['categoria'] ?? '') == 'cafe' ? 'selected' : '' ?>>Café da Manhã</option>
+                                        <option value="cafe" <?= ($receita['categoria'] ?? '') == 'cafe' ? 'selected' : '' ?>>Café da Manhã</option>
                                         <option value="almoco" <?= ($receita['categoria'] ?? '') == 'almoco' ? 'selected' : '' ?>>Almoço</option>
                                         <option value="jantar" <?= ($receita['categoria'] ?? '') == 'jantar' ? 'selected' : '' ?>>Jantar</option>
                                         <option value="lanche" <?= ($receita['categoria'] ?? '') == 'lanche' ? 'selected' : '' ?>>Lanche</option>
