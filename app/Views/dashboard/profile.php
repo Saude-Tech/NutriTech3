@@ -1,111 +1,171 @@
-<div class="p-4 space-y-6 animate-fade-in">
-    <!-- Profile Header -->
-    <div class="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 text-white">
-        <div class="flex items-center gap-4">
-            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-3xl font-bold text-primary">
-                <?= $user['nome'][0] ?>
-            </div>
-            <div>
-                <h2 class="text-xl font-bold"><?= $user['nome'] ?></h2>
-                <p class="text-green-100"><?= $user['email'] ?></p>
-                <button onclick="openEditProfile()" class="mt-2 px-3 py-1 bg-white/20 rounded-full text-sm hover:bg-white/30 transition-colors">
-                    ✏️ Editar perfil
-                </button>
-            </div>
-        </div>
-    </div>
+<div class="p-4 md:p-6 bg-[#f8faf8] min-h-screen">
+    <div class="max-w-7xl mx-auto space-y-4">
 
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white rounded-2xl p-4 shadow-sm">
-            <p class="text-sm text-gray-500">Peso Atual</p>
-            <p class="text-2xl font-bold text-gray-800"><?= round($user['peso']) ?> <span class="text-sm font-normal">kg</span></p>
-        </div>
-        <div class="bg-white rounded-2xl p-4 shadow-sm border-2 border-primary/20">
-            <p class="text-sm text-gray-500">Meta de Peso</p>
-            <p class="text-2xl font-bold text-primary" id="meta-peso"><?= $meta['meta_peso'] ?> <span class="text-sm font-normal">kg</span></p>
-        </div>
-        <div class="bg-white rounded-2xl p-4 shadow-sm">
-            <p class="text-sm text-gray-500">Altura</p>
-            <p class="text-2xl font-bold text-gray-800"><?= $user['altura'] ?> <span class="text-sm font-normal">cm</span></p>
-        </div>
-        <div class="bg-white rounded-2xl p-4 shadow-sm">
-            <p class="text-sm text-gray-500">IMC</p>
-            <p class="text-2xl font-bold ${bmiCategory.color}"><?= calcularIMC($user['peso'], $user['altura']) ?></p>
-            <p class="text-xs text-gray-400"><?= imc($user['peso'], $user['altura']) ?></p>
-        </div>
-    </div>
+        <!-- Profile Header -->
+        <div class="bg-[#f6fbf7] rounded-2xl p-5 md:p-6 profile-soft-card">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-4xl font-bold shadow-sm">
+                    <?= $user['nome'][0] ?>
+                </div>
 
-    <!-- Daily Goal -->
-    <div class="bg-white rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="font-semibold text-gray-800">Meta Calórica Diária</h3>
-            <button onclick="openCalorieGoalModal()" class="text-primary text-sm font-medium hover:underline">Ajustar</button>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center">
-                <span class="text-2xl">🔥</span>
-            </div>
-            <div class="flex-1">
-                <p class="text-3xl font-bold text-gray-800" id="meta-calorias"> <?= $meta['meta_calorias'] ?> kcal</p>
-                <p class="text-sm text-gray-500">calorias por dia</p>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-slate-800 leading-tight"><?= $user['nome'] ?></h2>
+                    <p class="text-slate-500 text-sm"><?= $user['email'] ?></p>
+
+                    <button onclick="openEditProfile()" class="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-300 text-green-600 text-sm font-semibold bg-white hover:bg-green-50 transition">
+                        <span>✏️</span>
+                        <span>Editar perfil</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Activity Level -->
-    <div class="bg-white rounded-2xl p-4 shadow-sm">
-        <h3 class="font-semibold text-gray-800 mb-4">Nível de Atividade</h3>
-
-        <div class="space-y-2">
-            <?= activity_option('1', 'Sedentário', 'Pouco ou nenhum exercício', '🛋️', $meta['nivel_atividade']) ?>
-
-            <?= activity_option('2', 'Levemente Ativo', 'Exercício leve 1-3 dias/semana', '🚶', $meta['nivel_atividade'] ?? null) ?>
-
-            <?= activity_option('3', 'Moderadamente Ativo', 'Exercício moderado 3-5 dias/semana', '🏃', $meta['nivel_atividade'] ?? null) ?>
-
-            <?= activity_option('4', 'Muito Ativo', 'Exercício intenso 6-7 dias/semana', '💪', $meta['nivel_atividade'] ?? null) ?>
-        </div>
-    </div>
-
-    <!-- Settings -->
-    <div id="configuracoes" class="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <h3 class="font-semibold text-gray-800 p-4 border-b border-gray-100">Configurações</h3>
-
-        <!-- LOGOUT BUTTON -->
-        <a href="<?= base_url('auth/logout') ?>">
-            <button class="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors border-b border-gray-100">
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🚪</span>
-                    <div class="text-left">
-                        <p class="font-medium text-red-600">Sair da Conta</p>
-                        <p class="text-xs text-red-400">Encerrar sessão atual</p>
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-5 profile-soft-card">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-2xl">
+                        ⚖️
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500">Peso Atual</p>
+                        <p class="text-2xl font-bold text-slate-800">
+                            <?= round($user['peso']) ?> <span class="text-base font-medium text-slate-500">kg</span>
+                        </p>
                     </div>
                 </div>
-                <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-            </button>
-        </a>
-            
-        <button onclick="resetData()" class="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors">
-            <div class="flex items-center gap-3">
-                <span class="text-xl">🗑️</span>
-                <div class="text-left">
-                    <p class="font-medium text-red-600">Resetar Dados</p>
-                    <p class="text-xs text-red-400">Apagar todo o histórico</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 profile-soft-card">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-2xl">
+                        🎯
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500">Meta de Peso</p>
+                        <p class="text-2xl font-bold text-green-600" id="meta-peso">
+                            <?= $meta['meta_peso'] ?> <span class="text-base font-medium text-green-500">kg</span>
+                        </p>
+                    </div>
                 </div>
             </div>
-            <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-    </div>
 
-    <!-- App Info -->
-    <div class="text-center py-4">
-        <p class="text-sm text-gray-400">NutriTech v1.0.0</p>
-        <p class="text-xs text-gray-300 mt-1">Feito com 💚 para sua saúde</p>
+            <div class="bg-white rounded-2xl p-5 profile-soft-card">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-2xl">
+                        📏
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500">Altura</p>
+                        <p class="text-2xl font-bold text-slate-800">
+                            <?= $user['altura'] ?> <span class="text-base font-medium text-slate-500">cm</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 profile-soft-card">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-2xl">
+                        🥗
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500">IMC</p>
+                        <p class="text-2xl font-bold text-slate-800">
+                            <?= calcularIMC($user['peso'], $user['altura']) ?>
+                        </p>
+                        <p class="text-sm text-slate-400"><?= imc($user['peso'], $user['altura']) ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Goal -->
+        <div class="bg-white rounded-2xl p-5 md:p-6 profile-soft-card">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-3xl">
+                        🔥
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-slate-500">Meta Calórica Diária</p>
+                        <p class="text-4xl font-bold text-green-600 leading-none" id="meta-calorias">
+                            <?= $meta['meta_calorias'] ?> kcal
+                        </p>
+                        <p class="text-sm text-slate-500 mt-1">calorias por dia</p>
+                    </div>
+                </div>
+
+                <div>
+                    <button onclick="openCalorieGoalModal()" class="px-5 py-2.5 rounded-full border border-green-300 text-green-600 font-semibold text-sm bg-white hover:bg-green-50 transition">
+                        Ajustar meta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Level -->
+        <div class="bg-white rounded-2xl p-5 md:p-6 profile-soft-card">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">Nível de Atividade</h3>
+
+            <div class="activity-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <?= activity_option('1', 'Sedentário', 'Pouco ou nenhum exercício', '🪑', $meta['nivel_atividade']) ?>
+
+                <?= activity_option('2', 'Levemente Ativo', 'Exercício leve 1-3 dias/semana', '🚶', $meta['nivel_atividade'] ?? null) ?>
+
+                <?= activity_option('3', 'Moderadamente Ativo', 'Exercício moderado 3-5 dias/semana', '🏃', $meta['nivel_atividade'] ?? null) ?>
+
+                <?= activity_option('4', 'Muito Ativo', 'Exercício intenso 6-7 dias/semana', '💪', $meta['nivel_atividade'] ?? null) ?>
+            </div>
+        </div>
+
+        <!-- Settings -->
+        <div id="configuracoes" class="bg-white rounded-2xl overflow-hidden profile-soft-card">
+            <div class="px-5 py-4 border-b border-slate-100">
+                <h3 class="text-xl font-bold text-slate-800">Configurações</h3>
+            </div>
+
+            <!-- Logout -->
+            <a href="<?= base_url('auth/logout') ?>" class="w-full flex items-center justify-between px-5 py-4 hover:bg-red-50 transition border-b border-slate-100">
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center text-xl">
+                        🚪
+                    </div>
+                    <div class="text-left">
+                        <p class="font-semibold text-red-600">Sair da Conta</p>
+                        <p class="text-sm text-slate-500">Encerrar sessão atual</p>
+                    </div>
+                </div>
+
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </a>
+
+            <!-- Reset -->
+            <button onclick="resetData()" class="w-full flex items-center justify-between px-5 py-4 hover:bg-red-50 transition">
+                <div class="flex items-center gap-4">
+                    <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center text-xl">
+                        🗑️
+                    </div>
+                    <div class="text-left">
+                        <p class="font-semibold text-red-600">Resetar Dados</p>
+                        <p class="text-sm text-slate-500">Apagar todo o histórico</p>
+                    </div>
+                </div>
+
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- App Info -->
+        <div class="text-center py-4">
+            <p class="text-sm text-slate-400">NutriTech v1.0.0</p>
+            <p class="text-xs text-slate-300 mt-1">Feito com 💚 para sua saúde</p>
+        </div>
     </div>
 </div>
 
@@ -174,7 +234,7 @@
                     <input type="number" id="calorie-goal-input" name="calorias" value="<?= $meta['meta_calorias'] ?>" class="text-4xl font-bold text-center text-gray-800 bg-transparent w-32 focus:outline-none">
                     <p class="text-gray-500">kcal</p>
                 </div>
-                
+
                 <div class="bg-gray-50 rounded-xl p-4">
                     <p class="text-sm text-gray-600 mb-2">Sugestões:</p>
                     <div class="space-y-2">
@@ -192,7 +252,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-medium hover:opacity-90 transition-opacity">
                     Salvar Meta
                 </button>
@@ -241,10 +301,7 @@
         element.classList.toggle('active');
     }
 
-    // Adicionamos 'botaoClicado' como o primeiro parâmetro
     function enviarAtualizacao(botaoClicado, url, nivel) {
-
-        // Captura os valores de calorias e peso dos inputs
         const inputCalorias = document.getElementById('meta-calorias');
         const inputPeso = document.getElementById('meta-peso');
 
@@ -257,7 +314,6 @@
             peso: peso
         };
 
-        // 1. Desabilita o botão para evitar cliques duplos durante o processamento
         if (botaoClicado) botaoClicado.disabled = true;
 
         fetch(url, {
@@ -265,12 +321,10 @@
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
-                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Descomente se o seu backend exigir
                 },
                 body: JSON.stringify(dados)
             })
             .then(response => {
-                // 2. Garante que erros do servidor (4xx, 5xx) sejam jogados para o catch
                 if (!response.ok) {
                     throw new Error(`Erro no servidor: ${response.status}`);
                 }
@@ -279,50 +333,41 @@
             .then(data => {
                 if (data.status === 'success') {
                     atualizarCoresDosBotoes(botaoClicado);
-                    // Opcional: Mostrar uma mensagem visual de sucesso para o usuário aqui
                 } else {
                     console.error('Erro retornado pela API:', data.message || 'Erro desconhecido');
                 }
             })
             .catch(erro => {
                 console.error('Erro de conexão ou servidor:', erro);
-                // Opcional: Mostrar um alert() ou toast avisando o usuário sobre a falha
             })
             .finally(() => {
-                // 3. Reabilita o botão independentemente de sucesso ou falha
                 if (botaoClicado) botaoClicado.disabled = false;
             });
     }
 
-function setCalorieGoal(value) {
-    document.getElementById('calorie-goal-input').value = value;
-}
+    function setCalorieGoal(value) {
+        document.getElementById('calorie-goal-input').value = value;
+    }
 
     function atualizarCoresDosBotoes(botaoAtivo) {
-        // 1. Pega todos os botões de atividade na tela
         const todosBotoes = document.querySelectorAll('.btn-atividade');
 
-        // 2. Remove o visual de "Ativo" de todos eles
         todosBotoes.forEach(btn => {
-            // Volta pro fundo cinza
             btn.classList.remove('bg-primary/10', 'border-primary', 'is-active');
             btn.classList.add('bg-gray-50', 'hover:bg-gray-100', 'border-transparent');
 
-            // Volta o texto pro escuro
             const titulo = btn.querySelector('.titulo-atividade');
             if (titulo) {
                 titulo.classList.remove('text-primary');
                 titulo.classList.add('text-gray-800');
             }
 
-            // Esconde o "✓"
             const check = btn.querySelector('.icon-check');
             if (check) {
                 check.classList.add('hidden');
             }
         });
 
-        // 3. Aplica o visual de "Ativo" APENAS no botão que foi clicado
         botaoAtivo.classList.remove('bg-gray-50', 'hover:bg-gray-100', 'border-transparent');
         botaoAtivo.classList.add('bg-primary/10', 'border-primary', 'is-active');
 
@@ -338,8 +383,6 @@ function setCalorieGoal(value) {
         }
     }
 
-
-    // Activity selection
     document.querySelectorAll('.activity-option').forEach(option => {
         option.addEventListener('click', () => {
             document.querySelectorAll('.activity-option').forEach(o => {
@@ -358,5 +401,4 @@ function setCalorieGoal(value) {
     });
 </script>
 </body>
-
 </html>
