@@ -91,24 +91,24 @@ $offset = $circumference * (1 - ($percentage / 100));
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
-                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center"><span class="text-sm">🍞</span></div>
+                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center"><span class="text-sm">🍞</span></div>
                         <span class="text-sm font-medium text-gray-700">Carbos</span>
                     </div>
                     <p class="text-xl font-bold text-gray-800"><?= $macros['carboidratos'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['carboidratos'] ?>g meta</p>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-                        <div class="h-full bg-amber-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%"></div>
+                        <div class="h-full bg-blue-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['carboidratos'], $goals['carboidratos']))))) ?>%"></div>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl p-4 shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
-                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center"><span class="text-sm">🥑</span></div>
+                        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center"><span class="text-sm">🥑</span></div>
                         <span class="text-sm font-medium text-gray-700">Gordura</span>
                     </div>
                     <p class="text-xl font-bold text-gray-800"><?= $macros['gorduras'] ?>g</p>
                     <p class="text-xs text-gray-500 mt-1"><?= $goals['gorduras'] ?>g meta</p>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 overflow-hidden">
-                        <div class="h-full bg-blue-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%"></div>
+                        <div class="h-full bg-amber-400 rounded-full macro-bar" style="width: <?= min(100, round(floatval(str_replace(',', '.', percentual_macro($macros['gorduras'], $goals['gorduras']))))) ?>%"></div>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@ $offset = $circumference * (1 - ($percentage / 100));
             <div class="bg-white rounded-2xl p-4 shadow-sm">
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h3 class="font-semibold text-gray-800">Água 💧</h3>
+                        <h3 class="font-semibold text-gray-800">Água </h3>
                         <p class="text-xs text-gray-500 mt-1">Meta diária: 2 litros</p>
                     </div>
                     <div class="text-right">
@@ -172,7 +172,7 @@ $offset = $circumference * (1 - ($percentage / 100));
                     <div class="bg-white rounded-2xl p-8 text-center shadow-sm">
 
                     <pre><?php var_dump($todayData); ?></pre>
-                        <div class="text-5xl mb-3">🍽</div>
+                        <div class="text-5xl mb-3"> 🍽 </div>
                         <h4 class="font-semibold text-gray-800 mb-1">Nenhuma refeição registrada ainda</h4>
                         <p class="text-sm text-gray-500 mb-4">Registre o que você comeu para acompanhar seus resultados.</p>
                         <a href="<?= base_url('dashboard/alimentos') ?>" class="block w-full py-3 rounded-xl text-white font-medium" style="background:#22c55e">+ Adicionar refeição</a>
