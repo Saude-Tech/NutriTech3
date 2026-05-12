@@ -26,8 +26,7 @@
 
             <button class="nt-search-clear" id="search-clear" title="Limpar">
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
@@ -53,7 +52,8 @@
                     <div class="food-item-kcal"><?= $alimento['calorias'] ?> kcal</div>
 
                     <div class="food-item-unit">
-                        P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g · G:<?= $alimento['gorduras'] ?>g
+                        P:<?= $alimento['proteinas'] ?>g · C:<?= $alimento['carboidratos'] ?>g ·
+                        G:<?= $alimento['gorduras'] ?>g
                     </div>
 
                     <button type="button" class="btn-selecionar" onclick="toggleForm(this)">
@@ -62,7 +62,6 @@
 
                     <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" class="food-item-form">
                         <input type="hidden" name="alimento_id" value="<?= $alimento['id'] ?>">
-                        <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
 
                         <div>
                             <label>Quantidade</label>
@@ -92,8 +91,7 @@
             <button id="btn-ver-todos" onclick="toggleVerTodos(this)">
                 Ver todos os alimentos
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 9l-7 7-7-7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
         </div>
@@ -110,8 +108,7 @@
 
             <button type="button" class="summary-close-btn" onclick="closeSummaryModal()" title="Fechar">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
 
@@ -204,9 +201,10 @@
                 <form action="<?= base_url('dashboard/adicionarAlimento') ?>" method="post" id="summary-form">
 
                     <input type="hidden" name="alimento_id" id="summary-food-id">
-                    <input type="hidden" name="tipo_refeicao" value="<?= $tipo_refeicao ?>">
                     <input type="hidden" name="quantidade" id="summary-hidden-qty">
                     <input type="hidden" name="unidade_id" id="summary-hidden-unit">
+                    <input type="hidden" name="tipo_refeicao" class="list-hidden-meal" id="summary-hidden-meal">
+
 
                     <button type="submit" class="summary-submit">
                         Adicionar à refeição
@@ -370,6 +368,7 @@
 
         document.getElementById('summary-hidden-qty').value = qty;
         document.getElementById('summary-hidden-unit').value = document.getElementById('summary-unit').value;
+        document.getElementById('summary-hidden-meal').value = document.getElementById('summary-meal').value;
     }
 
     function changeQty(amount) {
@@ -400,6 +399,19 @@
         });
     }
 
+    document.getElementById('summary-meal').addEventListener('change', function () {
+        const refeicaoSelecionada = this.value;
+
+        // Atualiza a barra lateral
+        updateSummaryMacros();
+
+        // Atualiza todos os formulários pequenos da lista
+        document.querySelectorAll('.list-hidden-meal').forEach(input => {
+            input.value = refeicaoSelecionada;
+        });
+    });
+
     document.getElementById('summary-qty').addEventListener('input', updateSummaryMacros);
     document.getElementById('summary-unit').addEventListener('change', updateSummaryMacros);
+    document.getElementById('summary-meal').addEventListener('change', updateSummaryMacros);
 </script>

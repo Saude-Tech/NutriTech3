@@ -190,14 +190,12 @@ class Dashboard extends BaseController
 
     public function alimentos()
     {
-        $tipo_refeicao = $this->request->getGet('tipo_refeicao');
         $alimentos = $this->alimentosModel->allFoods();
         $unidades = $this->unidades->findAll();
 
         $data = [
             'alimentos' => $alimentos,
             'unidades' => $unidades,
-            'tipo_refeicao' => $tipo_refeicao,
             'title' => 'Adicionar Alimento',
             'style' => 'style',
             'style2' => 'dashboard',
