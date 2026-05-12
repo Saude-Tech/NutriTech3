@@ -28,9 +28,9 @@
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3 text-xs">
-                        <span class="text-red-500">P: <?= esc($recipe['proteinas'] ?? 0) ?>g</span>
-                        <span class="text-amber-500">C: <?= esc($recipe['carboidratos'] ?? 0) ?>g</span>
-                        <span class="text-blue-500">G: <?= esc($recipe['gordura'] ?? 0) ?>g</span>
+                        <span class="text-red-500">Prot : <?= esc($recipe['proteinas'] ?? 0) ?>g</span>
+                        <span class="text-blue-500">Carb :  <?= esc($recipe['carboidratos'] ?? 0) ?>g</span>
+                        <span class="text-amber-500">Gordura : <?= esc($recipe['gordura'] ?? 0) ?>g</span>
                     </div>
                     <span class="font-bold text-primary"><?= esc($recipe['calorias'] ?? 0) ?> kcal</span>
                 </div>
