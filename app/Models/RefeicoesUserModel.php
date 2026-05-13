@@ -14,7 +14,9 @@ class RefeicoesUserModel extends Model
         'receita_id',
         'alimento_id',
         'tipo_refeicao',
-        'data_refeicao'
+        'data_refeicao',
+        'unidade_nome',
+        'quantidade'
     ];
 
     // Métodos para getReceitas
@@ -27,19 +29,18 @@ class RefeicoesUserModel extends Model
         return $this->db
             ->table('refeicoes_usuario ru')
             ->select('
-            ru.id as refeicao_usuario_id,
+            ru.id            as refeicao_usuario_id,
             ru.tipo_refeicao,
-            
-            -- Retorna o ID da receita OU o ID do alimento avulso como "id"
-            COALESCE(r.id, a_avulso.id) as id,
-            
-            -- Retorna o nome da receita OU o nome do alimento como "nome"
-            COALESCE(r.nome, a_avulso.nome) as nome,
-            
+            ru.quantidade,
+            ru.unidade_nome  as unidade,
+
+            COALESCE(r.id,        a_avulso.id)   as id,
+            COALESCE(r.nome,      a_avulso.nome) as nome,
+
             ROUND(
                 COALESCE(
-                    SUM(a_ing.calorias / 100 * ri.quantidade), 
-                    a_avulso.calorias                          
+                    SUM(a_ing.calorias / 100 * ri.quantidade),
+                    a_avulso.calorias * ru.quantidade
                 )
             ) as calorias
         ')
@@ -67,5 +68,4 @@ class RefeicoesUserModel extends Model
             ->orderBy('semana', 'ASC')
             ->findAll();
     }
-
 }

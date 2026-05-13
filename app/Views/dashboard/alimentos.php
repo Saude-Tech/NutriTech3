@@ -411,6 +411,12 @@
         });
     });
 
+    document.getElementById('summary-form').addEventListener('submit', function () {
+        document.getElementById('summary-hidden-meal').value = document.getElementById('summary-meal').value;
+        document.getElementById('summary-hidden-qty').value = document.getElementById('summary-qty').value;
+        document.getElementById('summary-hidden-unit').value = document.getElementById('summary-unit').value;
+    });
+
     document.getElementById('summary-qty').addEventListener('input', updateSummaryMacros);
     document.getElementById('summary-unit').addEventListener('change', updateSummaryMacros);
     document.getElementById('summary-meal').addEventListener('change', updateSummaryMacros);

@@ -136,7 +136,7 @@ VALUES
 --
 
 CREATE TABLE `controle_agua` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `quantidade_ml` int(11) DEFAULT NULL,
   `data_registro` date DEFAULT NULL
@@ -157,7 +157,7 @@ INSERT INTO `controle_agua` (`id`, `usuario_id`, `quantidade_ml`, `data_registro
 --
 
 CREATE TABLE `metas_usuario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `meta_peso` decimal(5,2) DEFAULT NULL,
   `meta_calorias` int(11) DEFAULT NULL,
@@ -181,7 +181,7 @@ INSERT INTO `metas_usuario` (`id`, `usuario_id`, `meta_peso`, `meta_calorias`, `
 --
 
 CREATE TABLE `receitas` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(150) NOT NULL,
   `descricao` text DEFAULT NULL,
   `categoria` enum('cafe','almoco','jantar','lanche') DEFAULT NULL,
@@ -225,7 +225,7 @@ INSERT INTO `receitas` (`id`, `nome`, `descricao`, `categoria`, `tempo_preparo`,
 --
 
 CREATE TABLE `receita_ingredientes` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `receita_id` int(11) NOT NULL,
   `alimento_id` int(11) NOT NULL,
   `quantidade` decimal(8,2) DEFAULT NULL,
@@ -290,7 +290,7 @@ INSERT INTO `receita_ingredientes` (`id`, `receita_id`, `alimento_id`, `quantida
 --
 
 CREATE TABLE `refeicoes_usuario` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `receita_id` int(11) DEFAULT NULL,
   `unidade_nome` varchar(30) DEFAULT NULL,
@@ -329,7 +329,7 @@ INSERT INTO `unidades` (`id`, `nome`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(120) NOT NULL,
   `email` varchar(150) NOT NULL,
   `senha` varchar(255) NOT NULL,

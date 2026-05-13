@@ -20,19 +20,21 @@ if (!function_exists('meta_calorias_diaria')) {
 if (!function_exists('calorias_hoje')) {
     function calorias_hoje($usuarioId)
     {
-        $db = Database::connect();
+        $db   = Database::connect();
         $hoje = date('Y-m-d');
 
         $result = $db->table('refeicoes_usuario ru')
-            ->select('COALESCE(SUM(COALESCE((a_ing.calorias / 100.0) * ri.quantidade, a_avulso.calorias)), 0) as total', false)
-
-            ->join('receitas r', 'r.id = ru.receita_id', 'left')
-            ->join('receita_ingredientes ri', 'ri.receita_id = r.id', 'left')
-            ->join('alimentos a_ing', 'a_ing.id = ri.alimento_id', 'left')
-
-            ->join('alimentos a_avulso', 'a_avulso.id = ru.alimento_id', 'left')
-
-            ->where('ru.usuario_id', $usuarioId)
+            ->select('
+                COALESCE(SUM(COALESCE(
+                    (a_ing.calorias / 100.0) * ri.quantidade,
+                    a_avulso.calorias * ru.quantidade
+                )), 0) as total
+            ', false)
+            ->join('receitas r',              'r.id = ru.receita_id',         'left')
+            ->join('receita_ingredientes ri', 'ri.receita_id = r.id',         'left')
+            ->join('alimentos a_ing',         'a_ing.id = ri.alimento_id',    'left')
+            ->join('alimentos a_avulso',      'a_avulso.id = ru.alimento_id', 'left')
+            ->where('ru.usuario_id',    $usuarioId)
             ->where('ru.data_refeicao', $hoje)
             ->get()
             ->getRowArray();
@@ -40,7 +42,6 @@ if (!function_exists('calorias_hoje')) {
         return round((float) $result['total']);
     }
 }
-
 if (!function_exists('calorias_restantes')) {
 
     function calorias_restantes($usuarioId)
